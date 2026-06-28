@@ -161,7 +161,7 @@ function ScreenRenderer({ screen, go, product, setProduct, amount, setAmount }: 
 
 /* ---------------- screens ---------------- */
 function Welcome({ go }: { go: (s: ScreenId) => void }) {
-  const [lang, setLang] = useState(LANGUAGES[0]);
+  const [lang, setLang] = useState<string>(LANGUAGES[0]);
   return (
     <div className="flex h-full flex-col bg-gradient-hero px-6 pb-6 pt-16 text-primary-foreground">
       <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
