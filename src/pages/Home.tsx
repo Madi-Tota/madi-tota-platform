@@ -152,6 +152,8 @@ export default function Home() {
         </div>
       </Section>
 
+      <ChannelSimulators />
+
       <Section>
         <div className="rounded-3xl bg-gradient-card p-8 text-primary-foreground md:p-12">
           <div className="grid items-center gap-8 md:grid-cols-2">
