@@ -65,6 +65,19 @@ export default function Employees() {
           <FeeCalculator />
         </div>
       </Section>
+
+      <Section>
+        <SectionHeading
+          eyebrow="Know before you draw"
+          title="What a draw really costs you"
+          subtitle="Set your salary and amount to see the fee, what lands in your hand and what comes off at payday."
+        />
+        <div className="mx-auto mt-10 max-w-2xl">
+          <WorkerTransparencyWidget />
+        </div>
+      </Section>
+
+      <ChannelSimulators />
     </>
   );
 }
