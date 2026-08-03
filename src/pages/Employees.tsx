@@ -1,6 +1,8 @@
 import { Eye, ShieldCheck, Smartphone, Wallet, BookOpen, HeartHandshake } from "lucide-react";
 import { PageHero, Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
 import { FeeCalculator } from "@/components/FeeCalculator";
+import { WorkerTransparencyWidget } from "@/components/WorkerTransparencyWidget";
+import { ChannelSimulators } from "@/components/ChannelSimulators";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { RATES } from "@/lib/brand";
 
