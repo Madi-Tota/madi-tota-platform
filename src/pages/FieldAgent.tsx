@@ -31,9 +31,9 @@ export default function FieldAgent() {
   return (
     <>
       <PageHero
-        eyebrow="Field agent portal · Preview"
-        title="Tools for education & onboarding support"
-        subtitle="A preview of the field-agent workspace for helping workers understand Madi-Tota™ — focused on education, not sales."
+        eyebrow="Field onboarding · Preview"
+        title="Field onboarding: education first, never sales"
+        subtitle="A preview of the field onboarding workspace. Field teams exist to explain the model, confirm voluntary consent and answer questions — they carry no sales targets and earn nothing from a worker taking a draw."
       />
 
       <Section>

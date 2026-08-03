@@ -1,0 +1,189 @@
+import { useMemo, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Send, RotateCcw } from "lucide-react";
+import { RATES, SIM_SALARY, COMPLIANCE } from "@/lib/brand";
+import { SimBadge } from "./SimBadge";
+
+const money = (n: number) =>
+  "R" +
+  n.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+interface Msg {
+  from: "bot" | "user";
+  text: string;
+}
+
+type Step = "menu" | "amount" | "confirm" | "done";
+
+const cap = Math.round((SIM_SALARY * RATES.capPercent) / 100);
+
+const WELCOME: Msg = {
+  from: "bot",
+  text: `Hi 👋 This is the Madi-Tota assistant (simulation).\nReply:\n1 — Check available access\n2 — CHILL draw (${RATES.chill}%)\n3 — ZAP draw (${RATES.zap}%)\n4 — How recovery works`,
+};
+
+export function WhatsAppDemo() {
+  const [messages, setMessages] = useState<Msg[]>([WELCOME]);
+  const [step, setStep] = useState<Step>("menu");
+  const [product, setProduct] = useState<"CHILL" | "ZAP">("CHILL");
+  const [amount, setAmount] = useState(0);
+  const [draft, setDraft] = useState("");
+  const endRef = useRef<HTMLDivElement>(null);
+
+  const rate = useMemo(
+    () => (product === "CHILL" ? RATES.chill : RATES.zap),
+    [product],
+  );
+
+  function say(text: string) {
+    setMessages((m) => [...m, { from: "bot", text }]);
+    requestAnimationFrame(() =>
+      endRef.current?.scrollIntoView({ block: "nearest" }),
+    );
+  }
+
+  function handleSend(e: React.FormEvent) {
+    e.preventDefault();
+    const value = draft.trim();
+    if (!value) return;
+    setMessages((m) => [...m, { from: "user", text: value }]);
+    setDraft("");
+
+    if (step === "menu") {
+      if (value === "1") {
+        say(
+          `Simulated salary ${money(SIM_SALARY)}.\nYour ${RATES.capPercent}% cap is ${money(cap)}.\nAvailable now: ${money(cap)}.\n\nReply 2 for CHILL or 3 for ZAP.`,
+        );
+        return;
+      }
+      if (value === "2" || value === "3") {
+        setProduct(value === "2" ? "CHILL" : "ZAP");
+        setStep("amount");
+        say(
+          `${value === "2" ? "CHILL" : "ZAP"} selected. How much do you want to access? Enter an amount up to ${money(cap)}.`,
+        );
+        return;
+      }
+      if (value === "4") {
+        say(
+          "What you draw plus the fee is recovered in one payroll deduction at month-end, with your consent and your employer's authorisation. Nothing rolls over into new debt.",
+        );
+        return;
+      }
+      say("Sorry, I did not understand. Reply 1, 2, 3 or 4.");
+      return;
+    }
+
+    if (step === "amount") {
+      const n = Number(value.replace(/[Rr,\s]/g, ""));
+      if (Number.isNaN(n) || n <= 0) {
+        say("Please send a number, for example 1500.");
+        return;
+      }
+      if (n > cap) {
+        say(
+          `That is above your ${RATES.capPercent}% cap of ${money(cap)}. Please send a lower amount.`,
+        );
+        return;
+      }
+      setAmount(n);
+      setStep("confirm");
+      const fee = (n * rate) / 100;
+      say(
+        `${product} draw\nAmount: ${money(n)}\nFee (${rate}%): ${money(fee)}\nYou receive: ${money(n - fee)}\nPayroll deduction at month-end: ${money(n + fee)}\n\nReply YES to confirm or NO to cancel.`,
+      );
+      return;
+    }
+
+    if (step === "confirm") {
+      if (/^y(es)?$/i.test(value)) {
+        const fee = (amount * rate) / 100;
+        setStep("done");
+        say(
+          `Confirmed (simulation only). ${money(amount - fee)} would be paid out and ${money(amount + fee)} recovered at month-end. Reply RESTART to start again.`,
+        );
+        return;
+      }
+      if (/^n(o)?$/i.test(value)) {
+        setStep("menu");
+        say("Cancelled. Reply 1, 2, 3 or 4 to continue.");
+        return;
+      }
+      say("Please reply YES or NO.");
+      return;
+    }
+
+    reset();
+  }
+
+  function reset() {
+    setMessages([WELCOME]);
+    setStep("menu");
+    setAmount(0);
+    setDraft("");
+  }
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-md">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-display text-xl font-bold">
+          WhatsApp-style assistant demo
+        </h3>
+        <SimBadge />
+      </div>
+      <p className="mb-4 text-sm text-muted-foreground">
+        {COMPLIANCE.simNote} Not affiliated with or endorsed by any messaging
+        provider — this is a self-contained interface concept.
+      </p>
+
+      <div className="rounded-2xl border border-border bg-muted/40 p-3">
+        <div
+          className="max-h-80 space-y-2 overflow-y-auto p-1"
+          aria-live="polite"
+          aria-label="Assistant conversation"
+        >
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              className={
+                m.from === "bot"
+                  ? "max-w-[85%] whitespace-pre-line rounded-2xl rounded-tl-sm bg-card px-3 py-2 text-sm shadow-sm"
+                  : "ml-auto max-w-[85%] whitespace-pre-line rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-sm text-primary-foreground shadow-sm"
+              }
+            >
+              {m.text}
+            </div>
+          ))}
+          <div ref={endRef} />
+        </div>
+
+        <form onSubmit={handleSend} className="mt-3 flex gap-2">
+          <label htmlFor="wa-input" className="sr-only">
+            Message the Madi-Tota assistant
+          </label>
+          <Input
+            id="wa-input"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="Type 1, 2, 3, 4 or an amount…"
+            maxLength={40}
+            autoComplete="off"
+          />
+          <Button type="submit" size="icon" aria-label="Send message">
+            <Send className="h-4 w-4" />
+          </Button>
+          <Button
+            type="button"
+            size="icon"
+            variant="outline"
+            onClick={reset}
+            aria-label="Restart conversation"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+}

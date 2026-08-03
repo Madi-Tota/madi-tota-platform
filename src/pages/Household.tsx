@@ -18,16 +18,19 @@ export default function Household() {
   return (
     <>
       <PageHero
-        eyebrow="Household node"
-        title="Domestic worker & household model"
-        subtitle="A future household model for domestic employment — positioned as a concept subject to separate legal and implementation review."
+        eyebrow="Household wellness · Roadmap"
+        title="Household Wellness (Roadmap)"
+        subtitle="A future household model for domestic employment. It is a roadmap concept only — not offered today, and subject to separate legal, deduction-mandate and implementation review before anything is built."
       />
 
       <Section>
         <Note variant="warning">
-          This Household Node is a future concept only. It is subject to separate
-          legal and implementation review and is not part of the current pilot.
+          Household Wellness is a roadmap concept only. It is not part of the
+          current pilot, is not available to any employer or worker today, and
+          would require its own legal review, consent design and POPIA
+          assessment before launch.
         </Note>
+
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-7 shadow-sm">

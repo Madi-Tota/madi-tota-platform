@@ -17,6 +17,7 @@ import FieldAgent from "./pages/FieldAgent";
 import Compliance from "./pages/Compliance";
 import Contact from "./pages/Contact";
 import AppPrototype from "./pages/AppPrototype";
+import PrivacyNotice from "./pages/PrivacyNotice";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/pilot" element={<Pilot />} />
             <Route path="/field-agent" element={<FieldAgent />} />
             <Route path="/compliance" element={<Compliance />} />
+            <Route path="/privacy" element={<PrivacyNotice />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/app" element={<AppPrototype />} />
           </Route>

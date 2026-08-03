@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BadgeDollarSign, RefreshCw, Eye, Headphones, BarChart3, ClipboardCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero, Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
+import { EmployerRoiCalculator } from "@/components/EmployerRoiCalculator";
 import { RATES } from "@/lib/brand";
 
 const VALUE = [
@@ -36,6 +37,32 @@ export default function Employers() {
           ))}
         </div>
       </Section>
+
+      <Section muted>
+        <SectionHeading
+          eyebrow="Model the business case"
+          title="Employer ROI & cost-of-turnover simulator"
+          subtitle="Set your own headcount, salary and turnover assumptions. Every output is modelled, not promised."
+        />
+        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
+          <EmployerRoiCalculator />
+          <div className="space-y-4">
+            <Note>
+              Employer core access is {RATES.employerCore}. Worker fees are
+              disclosed before every draw and capped at {RATES.capPercent}% of
+              monthly salary.
+            </Note>
+            <Note variant="warning">
+              These outputs depend entirely on the assumptions you set. They are
+              not a forecast, guarantee or offer.
+            </Note>
+            <Button asChild variant="soft" size="lg">
+              <Link to="/compliance">See the employer trust ladder <ArrowRight /></Link>
+            </Button>
+          </div>
+        </div>
+      </Section>
+
 
       <Section muted>
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
