@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BadgeDollarSign, RefreshCw, Eye, Headphones, BarChart3, ClipboardCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero, Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
+import { EmployerRoiCalculator } from "@/components/EmployerRoiCalculator";
 import { RATES } from "@/lib/brand";
 
 const VALUE = [
