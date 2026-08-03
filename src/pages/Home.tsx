@@ -81,6 +81,25 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-primary-foreground/85">
+              <span className="font-semibold uppercase tracking-wide text-secondary">
+                Channels:
+              </span>
+              {["App", "USSD", "WhatsApp-style assistant", "Field agent"].map((c) => (
+                <span
+                  key={c}
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1"
+                >
+                  {c}
+                </span>
+              ))}
+              <a
+                href="#simulators"
+                className="font-semibold text-secondary underline underline-offset-4"
+              >
+                Try the simulators
+              </a>
+            </div>
           </div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
