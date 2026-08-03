@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { COMPLIANCE } from "@/lib/brand";
 import { Note } from "./primitives";
 
@@ -28,9 +30,11 @@ export function ProtoForm({
 }) {
   const { toast } = useToast();
   const [done, setDone] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (!consent) return;
     setDone(true);
     toast({
       title: "Thanks — interest noted (demo)",
@@ -48,7 +52,14 @@ export function ProtoForm({
           This is a prototype. Nothing was saved or sent. In the live product a
           team member would follow up via approved channels.
         </p>
-        <Button className="mt-5" variant="outline" onClick={() => setDone(false)}>
+        <Button
+          className="mt-5"
+          variant="outline"
+          onClick={() => {
+            setDone(false);
+            setConsent(false);
+          }}
+        >
           Reset form
         </Button>
       </div>
@@ -65,7 +76,7 @@ export function ProtoForm({
             {f.label} {f.required && <span className="text-destructive">*</span>}
           </Label>
           {f.type === "textarea" ? (
-            <Textarea id={f.name} placeholder={f.placeholder} required={f.required} />
+            <Textarea id={f.name} placeholder={f.placeholder} required={f.required} maxLength={1000} />
           ) : f.type === "select" ? (
             <select
               id={f.name}
@@ -88,13 +99,41 @@ export function ProtoForm({
               type={f.type ?? "text"}
               placeholder={f.placeholder}
               required={f.required}
+              maxLength={255}
             />
           )}
         </div>
       ))}
-      <Button type="submit" variant="hero" size="lg" className="w-full">
+
+      <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/40 p-4">
+        <Checkbox
+          id="popia-consent"
+          checked={consent}
+          onCheckedChange={(v) => setConsent(v === true)}
+          aria-describedby="popia-consent-help"
+        />
+        <div className="space-y-1">
+          <Label htmlFor="popia-consent" className="text-sm font-medium leading-snug">
+            {COMPLIANCE.consentLabel} <span className="text-destructive">*</span>
+          </Label>
+          <p id="popia-consent-help" className="text-xs text-muted-foreground">
+            Read the{" "}
+            <Link to="/privacy" className="font-medium text-primary underline">
+              Privacy Notice
+            </Link>
+            . In this prototype nothing is stored or transmitted.
+          </p>
+        </div>
+      </div>
+
+      <Button type="submit" variant="hero" size="lg" className="w-full" disabled={!consent}>
         {submitLabel}
       </Button>
+      {!consent && (
+        <p className="text-center text-xs text-muted-foreground">
+          Tick the consent box to enable submission.
+        </p>
+      )}
     </form>
   );
 }
