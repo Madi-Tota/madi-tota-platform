@@ -4,7 +4,7 @@ import { Logo } from "./Logo";
 import {
   BRAND,
   COMPLIANCE,
-  FOOTER_COPYRIGHT,
+  FOOTER_TAGLINE,
   FOOTER_POLICY_LINKS,
   NAV_LINKS,
 } from "@/lib/brand";
@@ -67,7 +67,12 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-primary-foreground/80">
             {FOOTER_POLICY_LINKS.map((l) => (
               <li key={l}>
-                <Link to="/compliance" className="hover:text-secondary">{l}</Link>
+                <Link
+                  to={l === "Privacy Policy" ? "/privacy" : "/compliance"}
+                  className="hover:text-secondary"
+                >
+                  {l}
+                </Link>
               </li>
             ))}
           </ul>
@@ -75,12 +80,14 @@ export function Footer() {
       </div>
 
       <div className="border-t border-primary-foreground/15">
-        <div className="container-tight space-y-3 py-6 text-xs text-primary-foreground/65">
+        <div className="container-tight space-y-3 py-6 text-xs text-primary-foreground/70">
           <p className="rounded-lg bg-secondary/10 px-3 py-2 text-secondary">
             {COMPLIANCE.classification}. {COMPLIANCE.popia}.
           </p>
           <p>{COMPLIANCE.disclaimers[0]} {COMPLIANCE.disclaimers[1]}</p>
-          <p className="pt-2">{FOOTER_COPYRIGHT}</p>
+          <p className="pt-2 text-sm font-medium text-primary-foreground/90">
+            {FOOTER_TAGLINE}
+          </p>
         </div>
       </div>
     </footer>
