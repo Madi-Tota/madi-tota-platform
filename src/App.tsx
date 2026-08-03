@@ -41,6 +41,7 @@ const App = () => (
             <Route path="/pilot" element={<Pilot />} />
             <Route path="/field-agent" element={<FieldAgent />} />
             <Route path="/compliance" element={<Compliance />} />
+            <Route path="/privacy" element={<PrivacyNotice />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/app" element={<AppPrototype />} />
           </Route>
