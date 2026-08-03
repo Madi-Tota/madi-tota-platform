@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Madi-Tota™ Investor-Ready Prototype
 
-TODO: Document your project here
+Non-live prototype for Utlwala Tactical System (Pty) Ltd. Mock data only — no real payments, payroll data or regulated activity.
