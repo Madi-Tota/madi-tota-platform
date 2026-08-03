@@ -17,6 +17,7 @@ import FieldAgent from "./pages/FieldAgent";
 import Compliance from "./pages/Compliance";
 import Contact from "./pages/Contact";
 import AppPrototype from "./pages/AppPrototype";
+import PrivacyNotice from "./pages/PrivacyNotice";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
