@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { AccessCard } from "@/components/AccessCard";
 import { ChannelSimulators } from "@/components/ChannelSimulators";
 import { Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
-import { BRAND, RATES, COMPLIANCE } from "@/lib/brand";
+import { BRAND, RATES, COMPLIANCE, BRAND_IMAGES } from "@/lib/brand";
 
 const STEPS = [
   {
@@ -111,6 +111,20 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <Section>
+        <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
+          <img
+            src={BRAND_IMAGES.workforce}
+            alt="Security, mining, retail and healthcare workers together under the Madi-Tota mark"
+            width={1920}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </figure>
+      </Section>
 
       <Section>
         <SectionHeading

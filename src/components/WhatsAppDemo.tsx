@@ -1,13 +1,20 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, RotateCcw } from "lucide-react";
-import { RATES, SIM_SALARY, COMPLIANCE } from "@/lib/brand";
+import {
+  RATES,
+  SIM_SALARY,
+  SIM_WORKING_DAYS,
+  SIM_DAYS_WORKED,
+  SIM_PRIOR_DRAWS,
+  COMPLIANCE,
+} from "@/lib/brand";
+import { quote, money, type ProductId } from "@/lib/fees";
+import { accrual } from "@/lib/accrual";
+import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
-
-const money = (n: number) =>
-  "R" +
-  n.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+import { EarningsBar } from "./EarningsBar";
 
 interface Msg {
   from: "bot" | "user";
@@ -16,7 +23,14 @@ interface Msg {
 
 type Step = "menu" | "amount" | "confirm" | "done";
 
-const cap = Math.round((SIM_SALARY * RATES.capPercent) / 100);
+const ACC = accrual({
+  netMonthlyPay: SIM_SALARY,
+  workingDays: SIM_WORKING_DAYS,
+  daysWorked: SIM_DAYS_WORKED,
+  priorDraws: SIM_PRIOR_DRAWS,
+});
+const cap = Math.round(ACC.available);
+const WINDOW = accessWindow("monthly", SIM_DAYS_WORKED);
 
 const WELCOME: Msg = {
   from: "bot",
@@ -26,15 +40,10 @@ const WELCOME: Msg = {
 export function WhatsAppDemo() {
   const [messages, setMessages] = useState<Msg[]>([WELCOME]);
   const [step, setStep] = useState<Step>("menu");
-  const [product, setProduct] = useState<"CHILL" | "ZAP">("CHILL");
+  const [product, setProduct] = useState<ProductId>("CHILL");
   const [amount, setAmount] = useState(0);
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
-
-  const rate = useMemo(
-    () => (product === "CHILL" ? RATES.chill : RATES.zap),
-    [product],
-  );
 
   function say(text: string) {
     setMessages((m) => [...m, { from: "bot", text }]);
@@ -53,7 +62,7 @@ export function WhatsAppDemo() {
     if (step === "menu") {
       if (value === "1") {
         say(
-          `Simulated salary ${money(SIM_SALARY)}.\nYour ${RATES.capPercent}% cap is ${money(cap)}.\nAvailable now: ${money(cap)}.\n\nReply 2 for CHILL or 3 for ZAP.`,
+          `Simulated net pay ${money(SIM_SALARY)}.\nEarned so far: ${money(ACC.earned)}.\nYour ${RATES.capPercent}% cap is ${money(ACC.cap)}.\nAvailable now: ${money(cap)}.\n${WINDOW.label}.\n\nReply 2 for CHILL or 3 for ZAP.`,
         );
         return;
       }
@@ -83,25 +92,25 @@ export function WhatsAppDemo() {
       }
       if (n > cap) {
         say(
-          `That is above your ${RATES.capPercent}% cap of ${money(cap)}. Please send a lower amount.`,
+          `That is above what you have earned so far (${money(cap)}). Please send a lower amount.`,
         );
         return;
       }
       setAmount(n);
       setStep("confirm");
-      const fee = (n * rate) / 100;
+      const q = quote(n, product);
       say(
-        `${product} draw\nAmount: ${money(n)}\nFee (${rate}%): ${money(fee)}\nYou receive: ${money(n - fee)}\nPayroll deduction at month-end: ${money(n + fee)}\n\nReply YES to confirm or NO to cancel.`,
+        `${product} draw\nAmount: ${money(q.amount)}\nFee (${q.rate}%): ${money(q.fee)}\nYou receive: ${money(q.workerReceives)}\nPayroll deduction at payday: ${money(q.paydayDeduction)}\n\nReply YES to confirm or NO to cancel.`,
       );
       return;
     }
 
     if (step === "confirm") {
       if (/^y(es)?$/i.test(value)) {
-        const fee = (amount * rate) / 100;
+        const q = quote(amount, product);
         setStep("done");
         say(
-          `Confirmed (simulation only). ${money(amount - fee)} would be paid out and ${money(amount + fee)} recovered at month-end. Reply RESTART to start again.`,
+          `Confirmed (simulation only). ${money(q.workerReceives)} would be paid out and ${money(q.paydayDeduction)} recovered at payday. Reply RESTART to start again.`,
         );
         return;
       }
@@ -136,6 +145,14 @@ export function WhatsAppDemo() {
         {COMPLIANCE.simNote} Not affiliated with or endorsed by any messaging
         provider — this is a self-contained interface concept.
       </p>
+
+      <EarningsBar
+        className="mb-5"
+        netMonthlyPay={SIM_SALARY}
+        workingDays={SIM_WORKING_DAYS}
+        daysWorked={SIM_DAYS_WORKED}
+        priorDraws={SIM_PRIOR_DRAWS}
+      />
 
       <div className="rounded-2xl border border-border bg-muted/40 p-3">
         <div

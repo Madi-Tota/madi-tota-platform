@@ -3,6 +3,8 @@ import { Mail, Phone, AtSign } from "lucide-react";
 import { Logo } from "./Logo";
 import {
   BRAND,
+  CONTACTS,
+  SOCIALS,
   COMPLIANCE,
   FOOTER_TAGLINE,
   FOOTER_POLICY_LINKS,
@@ -22,15 +24,36 @@ export function Footer() {
             employers.
           </p>
           <div className="space-y-2 text-sm">
-            <a href={`mailto:${BRAND.email}`} className="flex items-center gap-2 hover:text-secondary">
-              <Mail className="h-4 w-4" /> {BRAND.email}
-            </a>
+            {Object.values(CONTACTS).map((c) => (
+              <a
+                key={c.email}
+                href={`mailto:${c.email}`}
+                className="flex items-center gap-2 hover:text-secondary"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                <span>
+                  {c.email}
+                  <span className="block text-xs text-primary-foreground/60">{c.label}</span>
+                </span>
+              </a>
+            ))}
             <a href={`tel:${BRAND.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-secondary">
-              <Phone className="h-4 w-4" /> {BRAND.phone}
+              <Phone className="h-4 w-4" aria-hidden="true" /> {BRAND.phone}
             </a>
-            <span className="flex items-center gap-2">
-              <AtSign className="h-4 w-4" /> {BRAND.social}
-            </span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1">
+              <AtSign className="h-4 w-4" aria-hidden="true" />
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.id}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-medium hover:text-secondary"
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

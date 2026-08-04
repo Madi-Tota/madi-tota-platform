@@ -4,57 +4,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Madi-Tota design system. Warm fintech. All colors HSL. */
+/* Madi-Tota design system (DEC-007). Deep navy · gold · silver · teal accent. All colors HSL. */
 
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 175 30% 12%;
+    --background: 214 40% 98%;
+    --foreground: 210 65% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 175 30% 12%;
+    --card-foreground: 210 65% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 175 30% 12%;
+    --popover-foreground: 210 65% 11%;
 
-    /* Deep warm teal-green */
-    --primary: 173 58% 22%;
-    --primary-foreground: 40 40% 97%;
-    --primary-glow: 168 52% 38%;
+    /* #0A192F deep navy */
+    --primary: 210 65% 11%;
+    --primary-foreground: 214 100% 95%;
+    --primary-glow: 210 55% 22%;
 
-    /* Warm amber/gold */
-    --secondary: 38 92% 55%;
-    --secondary-foreground: 175 40% 14%;
+    /* #D4AF37 gold */
+    --secondary: 46 65% 52%;
+    --secondary-foreground: 210 65% 11%;
+    --gold: 46 65% 52%;
 
-    --muted: 40 24% 92%;
-    --muted-foreground: 175 12% 38%;
+    /* #E6F1FF silver */
+    --silver: 214 100% 95%;
+    --silver-foreground: 210 65% 11%;
 
-    --accent: 14 80% 55%;
-    --accent-foreground: 40 40% 97%;
+    --muted: 214 32% 94%;
+    --muted-foreground: 210 16% 40%;
+
+    /* #2DD4BF — the only interactive accent */
+    --accent: 172 66% 50%;
+    --accent-foreground: 210 65% 11%;
 
     --destructive: 0 72% 48%;
-    --destructive-foreground: 40 40% 97%;
+    --destructive-foreground: 214 100% 95%;
 
-    --success: 150 55% 38%;
-    --success-foreground: 40 40% 97%;
+    --success: 172 55% 34%;
+    --success-foreground: 214 100% 95%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 175 40% 14%;
+    --warning: 46 65% 46%;
+    --warning-foreground: 210 65% 11%;
 
-    --border: 40 18% 86%;
-    --input: 40 18% 86%;
-    --ring: 173 58% 22%;
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 172 66% 40%;
 
     --radius: 1rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(173 58% 18%) 0%, hsl(168 52% 30%) 60%, hsl(150 45% 38%) 100%);
-    --gradient-warm: linear-gradient(135deg, hsl(38 92% 58%) 0%, hsl(14 80% 56%) 100%);
-    --gradient-card: linear-gradient(160deg, hsl(173 58% 22%) 0%, hsl(170 50% 30%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(210 65% 11%) 0%, hsl(210 60% 16%) 60%, hsl(200 55% 20%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(46 65% 52%) 0%, hsl(46 60% 42%) 100%);
+    --gradient-card: linear-gradient(160deg, hsl(210 65% 11%) 0%, hsl(205 55% 19%) 100%);
 
-    --shadow-sm: 0 1px 3px hsl(173 30% 12% / 0.08);
-    --shadow-md: 0 8px 24px -8px hsl(173 40% 16% / 0.18);
-    --shadow-lg: 0 24px 60px -20px hsl(173 50% 14% / 0.30);
-    --shadow-glow: 0 12px 40px -10px hsl(168 52% 38% / 0.45);
+    --shadow-sm: 0 1px 3px hsl(210 65% 11% / 0.08);
+    --shadow-md: 0 8px 24px -8px hsl(210 65% 11% / 0.18);
+    --shadow-lg: 0 24px 60px -20px hsl(210 65% 11% / 0.30);
+    --shadow-glow: 0 12px 40px -10px hsl(172 66% 40% / 0.40);
+
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -67,30 +74,34 @@
   }
 
   .dark {
-    --background: 175 30% 8%;
-    --foreground: 40 33% 95%;
-    --card: 175 28% 11%;
-    --card-foreground: 40 33% 95%;
-    --popover: 175 28% 11%;
-    --popover-foreground: 40 33% 95%;
-    --primary: 168 52% 42%;
-    --primary-foreground: 175 40% 10%;
-    --primary-glow: 168 52% 50%;
-    --secondary: 38 92% 55%;
-    --secondary-foreground: 175 40% 12%;
-    --muted: 175 20% 18%;
-    --muted-foreground: 40 14% 70%;
-    --accent: 14 80% 58%;
-    --accent-foreground: 40 40% 97%;
+    --background: 210 60% 7%;
+    --foreground: 214 100% 95%;
+    --card: 210 55% 11%;
+    --card-foreground: 214 100% 95%;
+    --popover: 210 55% 11%;
+    --popover-foreground: 214 100% 95%;
+    --primary: 214 100% 95%;
+    --primary-foreground: 210 65% 11%;
+    --primary-glow: 210 55% 26%;
+    --secondary: 46 65% 52%;
+    --secondary-foreground: 210 65% 11%;
+    --gold: 46 65% 52%;
+    --silver: 214 100% 95%;
+    --silver-foreground: 210 65% 11%;
+    --muted: 210 32% 18%;
+    --muted-foreground: 214 20% 74%;
+    --accent: 172 66% 50%;
+    --accent-foreground: 210 65% 11%;
     --destructive: 0 62% 42%;
-    --destructive-foreground: 40 40% 97%;
-    --success: 150 55% 45%;
-    --success-foreground: 40 40% 97%;
-    --warning: 38 92% 55%;
-    --warning-foreground: 175 40% 12%;
-    --border: 175 18% 22%;
-    --input: 175 18% 22%;
-    --ring: 168 52% 42%;
+    --destructive-foreground: 214 100% 95%;
+    --success: 172 55% 42%;
+    --success-foreground: 210 65% 11%;
+    --warning: 46 65% 55%;
+    --warning-foreground: 210 65% 11%;
+    --border: 210 25% 22%;
+    --input: 210 25% 22%;
+    --ring: 172 66% 50%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

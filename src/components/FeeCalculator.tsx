@@ -2,20 +2,18 @@ import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { RATES } from "@/lib/brand";
+import { RATES, SIM_SALARY } from "@/lib/brand";
+import { quote, money0 } from "@/lib/fees";
 import { ProtoBadge } from "./primitives";
 
-const fmt = (n: number) =>
-  "R" + n.toLocaleString("en-ZA", { maximumFractionDigits: 0 });
-
 export function FeeCalculator() {
-  const [salary, setSalary] = useState(12000);
+  const [salary, setSalary] = useState(SIM_SALARY);
   const cap = Math.round((salary * RATES.capPercent) / 100);
-  const [draw, setDraw] = useState(1500);
+  const [draw, setDraw] = useState(Math.round(cap / 2));
   const clampedDraw = Math.min(draw, cap);
 
-  const chillFee = (clampedDraw * RATES.chill) / 100;
-  const zapFee = (clampedDraw * RATES.zap) / 100;
+  const chill = quote(clampedDraw, "CHILL");
+  const zap = quote(clampedDraw, "ZAP");
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-md">
@@ -26,14 +24,15 @@ export function FeeCalculator() {
       <p className="mb-6 text-sm text-muted-foreground">
         Illustrative only. Figures are examples, not an offer. CHILL is{" "}
         {RATES.chill}% per draw, ZAP is {RATES.zap}% per draw, with a{" "}
-        {RATES.capPercent}% monthly salary access cap.
+        {RATES.capPercent}% monthly salary access cap. You always receive the full
+        amount you request; the fee is added to the payday deduction.
       </p>
 
       <div className="space-y-6">
         <div>
           <div className="mb-2 flex items-center justify-between">
             <Label htmlFor="salary">Monthly salary</Label>
-            <span className="font-display font-bold text-primary">{fmt(salary)}</span>
+            <span className="font-display font-bold text-primary">{money0(salary)}</span>
           </div>
           <Input
             id="salary"
@@ -45,7 +44,7 @@ export function FeeCalculator() {
           />
           <p className="mt-2 text-xs text-muted-foreground">
             Monthly access cap ({RATES.capPercent}%):{" "}
-            <span className="font-semibold text-foreground">{fmt(cap)}</span>
+            <span className="font-semibold text-foreground">{money0(cap)}</span>
           </p>
         </div>
 
@@ -53,7 +52,7 @@ export function FeeCalculator() {
           <div className="mb-2 flex items-center justify-between">
             <Label>Draw amount</Label>
             <span className="font-display font-bold text-primary">
-              {fmt(clampedDraw)}
+              {money0(clampedDraw)}
             </span>
           </div>
           <Slider
@@ -66,20 +65,8 @@ export function FeeCalculator() {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <Result
-            label="CHILL"
-            rate={RATES.chill}
-            fee={chillFee}
-            total={clampedDraw + chillFee}
-            tone="primary"
-          />
-          <Result
-            label="ZAP"
-            rate={RATES.zap}
-            fee={zapFee}
-            total={clampedDraw + zapFee}
-            tone="accent"
-          />
+          <Result label="CHILL" q={chill} tone="primary" />
+          <Result label="ZAP" q={zap} tone="accent" />
         </div>
       </div>
     </div>
@@ -88,15 +75,11 @@ export function FeeCalculator() {
 
 function Result({
   label,
-  rate,
-  fee,
-  total,
+  q,
   tone,
 }: {
   label: string;
-  rate: number;
-  fee: number;
-  total: number;
+  q: ReturnType<typeof quote>;
   tone: "primary" | "accent";
 }) {
   return (
@@ -104,18 +87,24 @@ function Result({
       className={`rounded-xl border p-4 ${
         tone === "primary"
           ? "border-primary/20 bg-primary/5"
-          : "border-accent/20 bg-accent/5"
+          : "border-accent/30 bg-accent/10"
       }`}
     >
       <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        {label} · {rate}% per draw
+        {label} · {q.rate}% per draw
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
-        Fee: <span className="font-semibold text-foreground">{fmt(fee)}</span>
+        Fee: <span className="font-semibold text-foreground">{money0(q.fee)}</span>
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
-        Recovered at payday:{" "}
-        <span className="font-display font-bold text-foreground">{fmt(total)}</span>
+        You receive:{" "}
+        <span className="font-semibold text-foreground">{money0(q.workerReceives)}</span>
+      </p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Deducted at payday:{" "}
+        <span className="font-display font-bold text-foreground">
+          {money0(q.paydayDeduction)}
+        </span>
       </p>
     </div>
   );

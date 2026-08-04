@@ -7,11 +7,35 @@ export const BRAND = {
   tagline: "Wage access made simple, fair and payroll-linked.",
   descriptor:
     "designed and intended as payroll-linked wage-access infrastructure",
+  motto: "Re tla fenya mmogo — we will succeed together",
   email: "partners@maditota.co.za",
   phone: "+27 69 058 5643",
-  social: "@Madi-Tota",
+  social: "@maditota",
   omnichannel: "Utlwala OmniChannel",
 };
+
+/** Governed contact register — routing is enforced by form type. */
+export const CONTACTS = {
+  partners: {
+    label: "Partners & employers",
+    email: "partners@maditota.co.za",
+  },
+  support: {
+    label: "Worker support (post-launch)",
+    email: "support@maditota.co.za",
+  },
+  general: { label: "General enquiries", email: "info@maditota.co.za" },
+} as const;
+
+export type ContactRoute = keyof typeof CONTACTS;
+
+export const SOCIALS = [
+  { id: "linkedin", label: "LinkedIn", handle: "@maditota", url: "https://linkedin.com/company/maditota" },
+  { id: "x", label: "X", handle: "@maditota", url: "https://x.com/maditota" },
+  { id: "facebook", label: "Facebook", handle: "@maditota", url: "https://facebook.com/maditota" },
+  { id: "instagram", label: "Instagram", handle: "@maditota", url: "https://instagram.com/maditota" },
+  { id: "tiktok", label: "TikTok", handle: "@maditota", url: "https://tiktok.com/@maditota" },
+] as const;
 
 export const RATES = {
   chill: 5.8, // % per draw
@@ -20,7 +44,41 @@ export const RATES = {
   employerCore: "R0",
 };
 
-export const SIM_SALARY = 12400; // simulated monthly salary used by all simulators
+/** DEF-002 — simulated monthly salary used by every simulator. */
+export const SIM_SALARY = 12000;
+export const SIM_WORKING_DAYS = 22;
+export const SIM_DAYS_WORKED = 14;
+export const SIM_PRIOR_DRAWS = 500;
+/** Derived — never hardcode a rand cap anywhere. */
+export const SIM_CAP = (SIM_SALARY * RATES.capPercent) / 100;
+
+export const BRAND_IMAGES = {
+  lockup: "/brand/madi-tota-lockup.webp",
+  mark: "/brand/mark.png",
+  workforce: "/brand/workforce-sectors.webp",
+  workersMap: "/brand/workers-map.webp",
+  household: "/brand/household-workers.webp",
+  verticals: [
+    {
+      src: "/brand/vertical-clinic.webp",
+      alt: "Madi-Tota concept clinic with community health staff at sunrise",
+      title: "Community health",
+    },
+    {
+      src: "/brand/vertical-logistics.webp",
+      alt: "Madi-Tota concept logistics depot with warehouse and freight staff",
+      title: "Logistics",
+    },
+    {
+      src: "/brand/vertical-retail.webp",
+      alt: "Madi-Tota concept neighbourhood retail store with staff and customers",
+      title: "Community retail",
+    },
+  ],
+} as const;
+
+/** Mandatory governance caption for every future-vertical image. */
+export const ILLUSTRATIVE_CAPTION = "Illustrative concept — future vertical";
 
 export const COMPLIANCE = {
   classification:
@@ -38,8 +96,7 @@ export const COMPLIANCE = {
     "Do not submit salary, ID number or payroll documents through this public form.",
   simLabel: "SIMULATED DATA — ILLUSTRATIVE ONLY.",
   simNote: "Simulation for illustration — no live transaction.",
-  funding:
-    "Seed round — final terms in the diligence data room under NDA.",
+  funding: "Seed round — final terms in the diligence data room under NDA.",
   consentLabel:
     "I consent to Madi-Tota processing this information to respond to my interest (POPIA).",
 };
