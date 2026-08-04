@@ -113,6 +113,20 @@ export default function Home() {
       </section>
 
       <Section>
+        <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
+          <img
+            src={BRAND_IMAGES.workforce}
+            alt="Security, mining, retail and healthcare workers together under the Madi-Tota mark"
+            width={1920}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </figure>
+      </Section>
+
+      <Section>
         <SectionHeading
           center
           eyebrow="How it works"
