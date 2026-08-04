@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Delete, Phone, PhoneOff } from "lucide-react";
-import { RATES, SIM_SALARY, COMPLIANCE } from "@/lib/brand";
+import {
+  RATES,
+  SIM_SALARY,
+  SIM_WORKING_DAYS,
+  SIM_DAYS_WORKED,
+  SIM_PRIOR_DRAWS,
+  COMPLIANCE,
+} from "@/lib/brand";
+import { quote, money } from "@/lib/fees";
+import { accrual } from "@/lib/accrual";
+import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
+import { EarningsBar } from "./EarningsBar";
 
 const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
-
-const money = (n: number) =>
-  "R" +
-  n.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 type Stage = "dial" | "menu" | "balance" | "amount" | "confirm" | "done" | "terms";
 
@@ -20,10 +27,17 @@ export function UssdSimulator() {
   const [error, setError] = useState("");
   const [reference, setReference] = useState("");
 
-  const cap = Math.round((SIM_SALARY * RATES.capPercent) / 100);
-  const rate = product === "CHILL" ? RATES.chill : RATES.zap;
-  const fee = (amount * rate) / 100;
-  const net = amount - fee;
+  const acc = accrual({
+    netMonthlyPay: SIM_SALARY,
+    workingDays: SIM_WORKING_DAYS,
+    daysWorked: SIM_DAYS_WORKED,
+    priorDraws: SIM_PRIOR_DRAWS,
+  });
+  const cap = Math.round(acc.available);
+  const win = accessWindow("monthly", SIM_DAYS_WORKED);
+  const q = quote(amount, product);
+  const rate = q.rate;
+  const fee = q.fee;
 
   function reset() {
     setEntry("");
@@ -80,7 +94,7 @@ export function UssdSimulator() {
       }
       if (n > cap) {
         setError(
-          `Amount exceeds your ${RATES.capPercent}% cap of ${money(cap)}. Enter a lower amount.`,
+          `Amount exceeds what you have earned so far (${money(cap)}). Enter a lower amount.`,
         );
         return;
       }
@@ -128,8 +142,10 @@ Reply with a number.`;
       case "balance":
         return `Balance
 Simulated salary: ${money(SIM_SALARY)}
-Access cap (${RATES.capPercent}%): ${money(cap)}
+Earned so far: ${money(acc.earned)}
+Access cap (${RATES.capPercent}%): ${money(acc.cap)}
 Available now: ${money(cap)}
+${win.label}
 Recovery: one month-end payroll deduction
 
 0. Back`;
@@ -145,21 +161,21 @@ Fee always shown before you confirm.
       case "amount":
         return `${product} draw
 Enter amount in rand.
-Max ${money(cap)} (${RATES.capPercent}% of ${money(SIM_SALARY)}).`;
+Max ${money(cap)} (earned to date, ${RATES.capPercent}% cap).`;
       case "confirm":
         return `Confirm ${product} draw
 Amount: ${money(amount)}
 Fee (${rate}%): ${money(fee)}
-You receive: ${money(net)}
-Payroll deduction at month-end: ${money(amount + fee)}
+You receive: ${money(q.workerReceives)}
+Payroll deduction at payday: ${money(q.paydayDeduction)}
 
 1. Confirm  2. Cancel`;
       case "done":
         return `Confirmed (simulated)
 Ref: ${reference}
 ${product} ${money(amount)} · fee ${money(fee)}
-Paid out: ${money(net)}
-Deduction at month-end: ${money(amount + fee)}
+Paid out: ${money(q.workerReceives)}
+Deduction at payday: ${money(q.paydayDeduction)}
 
 Any key to restart.`;
     }
@@ -175,6 +191,14 @@ Any key to restart.`;
         {COMPLIANCE.simNote} Simulated monthly salary {money(SIM_SALARY)} — every
         figure recomputes from what you key in.
       </p>
+
+      <EarningsBar
+        className="mb-5"
+        netMonthlyPay={SIM_SALARY}
+        workingDays={SIM_WORKING_DAYS}
+        daysWorked={SIM_DAYS_WORKED}
+        priorDraws={SIM_PRIOR_DRAWS}
+      />
 
       <div className="mx-auto max-w-xs rounded-3xl border-4 border-primary/20 bg-primary p-4 shadow-lg">
         <pre
