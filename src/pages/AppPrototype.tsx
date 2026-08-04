@@ -8,8 +8,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { PageHero, Section, ProtoBadge, Note } from "@/components/primitives";
-import { LANGUAGES, RATES, BRAND } from "@/lib/brand";
+import {
+  LANGUAGES, RATES, BRAND, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS,
+} from "@/lib/brand";
+import { quote, money0 } from "@/lib/fees";
+import { accrual } from "@/lib/accrual";
+import { accessWindow } from "@/lib/accessWindow";
+import { EarningsBar } from "@/components/EarningsBar";
 import { cn } from "@/lib/utils";
+
+const SIM_ACCRUAL = accrual({
+  netMonthlyPay: SIM_SALARY,
+  workingDays: SIM_WORKING_DAYS,
+  daysWorked: SIM_DAYS_WORKED,
+  priorDraws: SIM_PRIOR_DRAWS,
+});
+const SIM_WINDOW = accessWindow("monthly", SIM_DAYS_WORKED);
 
 type ScreenId =
   | "welcome" | "register" | "home" | "limit" | "choose" | "fee"
