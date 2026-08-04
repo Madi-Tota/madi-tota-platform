@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "home": "Home",
+    "howItWorks": "How It Works",
+    "employees": "For Employees",
+    "employers": "For Employers",
+    "household": "Household Wellness (Roadmap)",
+    "learn": "Learn",
+    "moneywise": "MoneyWise Challenge",
+    "support": "Support",
+    "pilot": "Employer Pilot",
+    "fieldAgent": "Field Onboarding",
+    "compliance": "Trust & Compliance",
+    "privacy": "Privacy Notice",
+    "contact": "Contact",
+    "app": "App Prototype"
+  },
+  "common": {
+    "language": "Language",
+    "translationPending": "Translation pending human verification",
+    "simulated": "SIMULATED DATA — ILLUSTRATIVE ONLY.",
+    "illustrativeConcept": "Illustrative concept — future vertical",
+    "prototypeBanner": "Non-live prototype — no real payments or payroll data."
+  },
+  "earnings": {
+    "title": "Earnings so far this cycle",
+    "earned": "Earned so far",
+    "cap": "Access cap ({{percent}}% of net pay)",
+    "priorDraws": "Already accessed",
+    "available": "Available to access now",
+    "daysWorked": "{{worked}} of {{total}} working days"
+  },
+  "fees": {
+    "amount": "Amount",
+    "fee": "Fee ({{rate}}%)",
+    "youReceive": "You receive",
+    "paydayDeduction": "Deducted at payday",
+    "chill": "CHILL",
+    "zap": "ZAP"
+  },
+  "window": {
+    "title": "Access window",
+    "cycle": "Pay cycle"
+  },
+  "contact": {
+    "partners": "Partners & employers",
+    "support": "Worker support (post-launch)",
+    "general": "General enquiries",
+    "follow": "Follow Madi-Tota"
+  },
+  "ecosystem": {
+    "title": "Future Utlwala ecosystem",
+    "subtitle": "Concept verticals under exploration. Nothing shown here is operational, funded or approved."
+  },
+  "_note": "TRANSLATION PENDING HUMAN VERIFICATION — English fallback in use for 'nso'."
+}
