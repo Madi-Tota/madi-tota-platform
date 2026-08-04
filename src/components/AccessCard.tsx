@@ -1,26 +1,51 @@
 import { ShieldCheck, Wallet } from "lucide-react";
-import { RATES } from "@/lib/brand";
+import { RATES, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS } from "@/lib/brand";
+import { accrual } from "@/lib/accrual";
+import { money0 } from "@/lib/fees";
+import { accessWindow } from "@/lib/accessWindow";
+import { EarningsBar } from "./EarningsBar";
 
 export function AccessCard() {
+  const { available } = accrual({
+    netMonthlyPay: SIM_SALARY,
+    workingDays: SIM_WORKING_DAYS,
+    daysWorked: SIM_DAYS_WORKED,
+    priorDraws: SIM_PRIOR_DRAWS,
+  });
+  const win = accessWindow("monthly", SIM_DAYS_WORKED);
+
   return (
     <div className="mx-auto w-full max-w-sm rounded-[2rem] bg-gradient-card p-6 text-primary-foreground shadow-lg ring-1 ring-white/10">
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-2 text-sm font-medium text-secondary">
-          <Wallet className="h-4 w-4" /> Available this month
+          <Wallet className="h-4 w-4" /> Available to access now
         </span>
         <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide">
           Demo
         </span>
       </div>
-      <p className="mt-2 font-display text-5xl font-extrabold">R2,400</p>
+      <p className="mt-2 font-display text-5xl font-extrabold">{money0(available)}</p>
 
-      <div className="mt-6 grid grid-cols-3 gap-2 text-center">
+      <EarningsBar
+        className="mt-5"
+        tone="dark"
+        netMonthlyPay={SIM_SALARY}
+        workingDays={SIM_WORKING_DAYS}
+        daysWorked={SIM_DAYS_WORKED}
+        priorDraws={SIM_PRIOR_DRAWS}
+      />
+
+      <div className="mt-5 grid grid-cols-3 gap-2 text-center">
         <Stat label="CHILL" value={`${RATES.chill}%`} />
         <Stat label="ZAP" value={`${RATES.zap}%`} />
         <Stat label="Monthly cap" value={`${RATES.capPercent}%`} />
       </div>
 
-      <div className="mt-6 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-sm">
+      <p className="mt-4 rounded-xl bg-white/10 px-3 py-2 text-xs text-primary-foreground/85">
+        {win.label}
+      </p>
+
+      <div className="mt-3 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-sm">
         <ShieldCheck className="h-4 w-4 text-secondary" />
         Always see your fee before confirming.
       </div>
