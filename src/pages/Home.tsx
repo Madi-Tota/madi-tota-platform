@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { AccessCard } from "@/components/AccessCard";
 import { ChannelSimulators } from "@/components/ChannelSimulators";
 import { Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
-import { BRAND, RATES, COMPLIANCE } from "@/lib/brand";
+import { BRAND, RATES, COMPLIANCE, BRAND_IMAGES } from "@/lib/brand";
 
 const STEPS = [
   {

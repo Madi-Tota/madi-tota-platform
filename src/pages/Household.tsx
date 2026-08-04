@@ -1,6 +1,8 @@
 import { Home, HandHeart, FileText, ScrollText, ShieldCheck, Users } from "lucide-react";
 import { PageHero, Section, SectionHeading, Note } from "@/components/primitives";
 import { ProtoForm } from "@/components/ProtoForm";
+import { FutureEcosystem } from "@/components/FutureEcosystem";
+import { BRAND_IMAGES } from "@/lib/brand";
 
 const HOUSEHOLD = [
   { icon: Home, title: "Simple, fair setup", text: "A household employer could offer payroll-linked wage access to a domestic worker with clear, transparent terms." },
@@ -22,6 +24,23 @@ export default function Household() {
         title="Household Wellness (Roadmap)"
         subtitle="A future household model for domestic employment. It is a roadmap concept only — not offered today, and subject to separate legal, deduction-mandate and implementation review before anything is built."
       />
+
+      <Section>
+        <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
+          <img
+            src={BRAND_IMAGES.household}
+            alt="Domestic workers at home reviewing the Madi-Tota app on a smartphone"
+            width={1920}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+          <figcaption className="bg-card p-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Illustrative concept — future vertical
+          </figcaption>
+        </figure>
+      </Section>
 
       <Section>
         <Note variant="warning">
@@ -98,6 +117,7 @@ export default function Household() {
           />
         </div>
       </Section>
+      <FutureEcosystem />
     </>
   );
 }
