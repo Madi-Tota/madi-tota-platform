@@ -238,13 +238,17 @@ function HomeDash({ go }: { go: (s: ScreenId) => void }) {
         <p className="text-sm text-primary-foreground/80">Hello,</p>
         <h2 className="font-display text-2xl font-extrabold">Thandi 👋</h2>
         <div className="mt-4 rounded-2xl bg-white/10 p-4">
-          <p className="text-xs text-primary-foreground/70">Available this month</p>
-          <p className="font-display text-4xl font-extrabold">R2,400</p>
-          <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-            <div className="rounded-lg bg-white/10 p-2">Used this month<br /><b>R800</b></div>
-            <div className="rounded-lg bg-white/10 p-2">Remaining<br /><b>R1,600</b></div>
-          </div>
-          <p className="mt-3 text-xs text-primary-foreground/70">Next payday in <b>28 days</b></p>
+          <p className="text-xs text-primary-foreground/70">Available to access now</p>
+          <p className="font-display text-4xl font-extrabold">{money0(SIM_ACCRUAL.available)}</p>
+          <EarningsBar
+            className="mt-4"
+            tone="dark"
+            netMonthlyPay={SIM_SALARY}
+            workingDays={SIM_WORKING_DAYS}
+            daysWorked={SIM_DAYS_WORKED}
+            priorDraws={SIM_PRIOR_DRAWS}
+          />
+          <p className="mt-3 text-xs text-primary-foreground/70">{SIM_WINDOW.label}</p>
         </div>
       </div>
       <div className="space-y-3 p-5">
@@ -285,15 +289,16 @@ function Limit({ go }: { go: (s: ScreenId) => void }) {
       <AppBar title="Available access" onBack={() => go("home")} />
       <div className="flex-1 space-y-4 p-5">
         <div className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm">
-          <p className="text-sm text-muted-foreground">Available this month</p>
-          <p className="font-display text-5xl font-extrabold text-primary">R2,400</p>
-          <p className="mt-1 text-xs text-muted-foreground">Based on a {RATES.capPercent}% monthly salary cap</p>
+          <p className="text-sm text-muted-foreground">Available to access now</p>
+          <p className="font-display text-5xl font-extrabold text-primary">{money0(SIM_ACCRUAL.available)}</p>
+          <p className="mt-1 text-xs text-muted-foreground">Earned to date, within a {RATES.capPercent}% net-pay cap</p>
         </div>
         <div className="space-y-2 rounded-2xl border border-border bg-card p-5 text-sm">
-          <Row k="Monthly salary (demo)" v="R12,000" />
-          <Row k={`Access cap (${RATES.capPercent}%)`} v="R2,400" />
-          <Row k="Used this month" v="R800" />
-          <Row k="Remaining" v="R1,600" highlight />
+          <Row k="Monthly net pay (demo)" v={money0(SIM_SALARY)} />
+          <Row k="Earned so far" v={money0(SIM_ACCRUAL.earned)} />
+          <Row k={`Access cap (${RATES.capPercent}%)`} v={money0(SIM_ACCRUAL.cap)} />
+          <Row k="Already accessed" v={money0(SIM_PRIOR_DRAWS)} />
+          <Row k="Available now" v={money0(SIM_ACCRUAL.available)} highlight />
         </div>
         <Note>Your cap protects you from over-using wage access.</Note>
       </div>
@@ -345,11 +350,11 @@ function Choose({ go, product, setProduct, amount, setAmount }: Omit<SP, "screen
           <p className="mb-2 text-sm font-medium">Draw amount</p>
           <p className="font-display text-3xl font-extrabold text-primary">{fmt(amount)}</p>
           <input
-            type="range" min={100} max={1600} step={100} value={amount}
+            type="range" min={100} max={Math.max(100, Math.round(SIM_ACCRUAL.available))} step={100} value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
             className="mt-3 w-full accent-[hsl(var(--primary))]"
           />
-          <p className="mt-1 text-xs text-muted-foreground">Max available: R1,600</p>
+          <p className="mt-1 text-xs text-muted-foreground">Max available: {money0(SIM_ACCRUAL.available)}</p>
         </div>
       </div>
       <div className="p-5">
@@ -360,8 +365,9 @@ function Choose({ go, product, setProduct, amount, setAmount }: Omit<SP, "screen
 }
 
 function Fee({ go, product, amount }: { go: (s: ScreenId) => void; product: "CHILL" | "ZAP"; amount: number }) {
-  const rate = product === "CHILL" ? RATES.chill : RATES.zap;
-  const fee = Math.round((amount * rate) / 100);
+  const q = quote(amount, product);
+  const rate = q.rate;
+  const fee = q.fee;
   return (
     <div className="flex h-full flex-col">
       <AppBar title="Confirm your fee" onBack={() => go("choose")} />
@@ -374,7 +380,8 @@ function Fee({ go, product, amount }: { go: (s: ScreenId) => void; product: "CHI
           <Row k="Option" v={`${product} (${rate}% per draw)`} />
           <Row k="Draw amount" v={fmt(amount)} />
           <Row k="Fee" v={fmt(fee)} />
-          <Row k="Recovered at payday" v={fmt(amount + fee)} highlight />
+          <Row k="You receive" v={fmt(q.workerReceives)} />
+          <Row k="Deducted at payday" v={fmt(q.paydayDeduction)} highlight />
         </div>
         <Note>You are seeing your exact fee before confirming — always.</Note>
       </div>

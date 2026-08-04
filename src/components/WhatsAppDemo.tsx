@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, RotateCcw } from "lucide-react";
@@ -44,11 +44,6 @@ export function WhatsAppDemo() {
   const [amount, setAmount] = useState(0);
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
-
-  const rate = useMemo(
-    () => (product === "CHILL" ? RATES.chill : RATES.zap),
-    [product],
-  );
 
   function say(text: string) {
     setMessages((m) => [...m, { from: "bot", text }]);
