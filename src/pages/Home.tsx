@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -14,15 +15,54 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AccessCard } from "@/components/AccessCard";
-import { ChannelSimulators } from "@/components/ChannelSimulators";
 import { Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
 import { BRAND, RATES, COMPLIANCE, BRAND_IMAGES } from "@/lib/brand";
+import { FEE_LABELS } from "@/lib/fee-schedule";
+
+const WhyNow = lazy(() =>
+  import("@/components/sections/WhyNow").then((m) => ({ default: m.WhyNow })),
+);
+const FounderStory = lazy(() =>
+  import("@/components/sections/FounderStory").then((m) => ({
+    default: m.FounderStory,
+  })),
+);
+const EmployerValue = lazy(() =>
+  import("@/components/sections/EmployerValue").then((m) => ({
+    default: m.EmployerValue,
+  })),
+);
+const TrustGovernance = lazy(() =>
+  import("@/components/sections/TrustGovernance").then((m) => ({
+    default: m.TrustGovernance,
+  })),
+);
+const Faq = lazy(() =>
+  import("@/components/sections/Faq").then((m) => ({ default: m.Faq })),
+);
+const ChannelSimulators = lazy(() =>
+  import("@/components/ChannelSimulators").then((m) => ({
+    default: m.ChannelSimulators,
+  })),
+);
+
+const SectionFallback = () => (
+  <div className="container-tight py-14" aria-hidden="true">
+    <div className="h-40 rounded-2xl bg-muted/50" />
+  </div>
+);
+
+const TRUST_CHIPS = [
+  "Fee shown before you confirm",
+  `${FEE_LABELS.cap} monthly cap`,
+  "POPIA-aligned consent",
+];
 
 const STEPS = [
   {
     icon: Building2,
     title: "1 · Employer joins the pilot",
-    text: "An employer opts in and connects payroll context. Employer core access is R0.",
+    text: `An employer opts in and connects payroll context. Employer core access is ${FEE_LABELS.employerCore}.`,
   },
   {
     icon: Handshake,
@@ -51,11 +91,25 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mt-5 font-display text-4xl font-extrabold leading-[1.1] md:text-6xl"
+              className="mt-5 font-display text-4xl font-extrabold leading-[1.1] md:text-6xl motion-reduce:transform-none"
             >
               {BRAND.tagline}
             </motion.h1>
-            <p className="mt-5 max-w-xl text-lg text-primary-foreground/85">
+            <p className="mt-4 max-w-xl text-lg font-medium text-primary-foreground">
+              Access wages you have already earned. One disclosed flat fee. No
+              interest, no credit check, no surprises.
+            </p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {TRUST_CHIPS.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-full border border-white/30 bg-white/15 px-3 py-1.5 text-sm font-semibold text-primary-foreground"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 max-w-xl text-base text-primary-foreground/85">
               Madi-Tota™ is {BRAND.descriptor} for South African workers and
               employers.
             </p>
@@ -105,12 +159,16 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="md:justify-self-end"
+            className="md:justify-self-end motion-reduce:transform-none"
           >
             <AccessCard />
           </motion.div>
         </div>
       </section>
+
+      <Suspense fallback={<SectionFallback />}>
+        <WhyNow />
+      </Suspense>
 
       <Section>
         <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
@@ -149,6 +207,10 @@ export default function Home() {
         </div>
       </Section>
 
+      <Suspense fallback={<SectionFallback />}>
+        <FounderStory />
+      </Suspense>
+
       <Section muted>
         <div className="grid gap-6 md:grid-cols-3">
           <FeatureCard icon={Eye} title="Fee shown before you confirm">
@@ -166,7 +228,21 @@ export default function Home() {
         </div>
       </Section>
 
-      <ChannelSimulators />
+      <Suspense fallback={<SectionFallback />}>
+        <ChannelSimulators />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <EmployerValue />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <TrustGovernance />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Faq />
+      </Suspense>
 
       <Section>
         <div className="rounded-3xl bg-gradient-card p-8 text-primary-foreground md:p-12">
