@@ -18,6 +18,7 @@ import Compliance from "./pages/Compliance";
 import Contact from "./pages/Contact";
 import AppPrototype from "./pages/AppPrototype";
 import PrivacyNotice from "./pages/PrivacyNotice";
+import LegalPlaceholder from "./pages/LegalPlaceholder";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,12 @@ const App = () => (
             <Route path="/field-agent" element={<FieldAgent />} />
             <Route path="/compliance" element={<Compliance />} />
             <Route path="/privacy" element={<PrivacyNotice />} />
+            <Route path="/terms" element={<LegalPlaceholder title="Terms of Use" />} />
+            <Route path="/paia" element={<LegalPlaceholder title="PAIA Manual" />} />
+            <Route
+              path="/regulatory-disclaimer"
+              element={<LegalPlaceholder title="Regulatory disclaimer" eyebrow="Compliance" />}
+            />
             <Route path="/contact" element={<Contact />} />
             <Route path="/app" element={<AppPrototype />} />
           </Route>
