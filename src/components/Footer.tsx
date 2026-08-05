@@ -7,15 +7,50 @@ import {
   SOCIALS,
   COMPLIANCE,
   FOOTER_TAGLINE,
-  FOOTER_POLICY_LINKS,
-  NAV_LINKS,
 } from "@/lib/brand";
+
+const COLUMNS: { heading: string; links: { label: string; to: string }[] }[] = [
+  {
+    heading: "Product",
+    links: [
+      { label: "How it works", to: "/how-it-works" },
+      { label: "Simulators", to: "/#simulators" },
+      { label: "Learn hub", to: "/learn" },
+      { label: "App prototype", to: "/app" },
+    ],
+  },
+  {
+    heading: "Employers",
+    links: [
+      { label: "Why Madi-Tota", to: "/#why-now" },
+      { label: "Employer FAQ", to: "/#faq" },
+      { label: "Join the pilot", to: "/pilot" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "Founder story", to: "/#founder-story" },
+      { label: "Contact", to: "/contact" },
+      { label: "Press & investors", to: "/compliance" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy Policy", to: "/privacy" },
+      { label: "Terms of Use", to: "/terms" },
+      { label: "PAIA Manual", to: "/paia" },
+      { label: "Regulatory disclaimer", to: "/regulatory-disclaimer" },
+    ],
+  },
+];
 
 export function Footer() {
   return (
     <footer className="mt-20 border-t border-border bg-primary text-primary-foreground">
-      <div className="container-tight grid gap-10 py-14 md:grid-cols-4">
-        <div className="space-y-4 md:col-span-1">
+      <div className="container-tight grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
+        <div className="space-y-4 lg:col-span-1">
           <div className="rounded-xl bg-background/95 px-3 py-2 w-fit">
             <Logo />
           </div>
@@ -33,11 +68,16 @@ export function Footer() {
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 <span>
                   {c.email}
-                  <span className="block text-xs text-primary-foreground/60">{c.label}</span>
+                  <span className="block text-xs text-primary-foreground/60">
+                    {c.label}
+                  </span>
                 </span>
               </a>
             ))}
-            <a href={`tel:${BRAND.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-secondary">
+            <a
+              href={`tel:${BRAND.phone.replace(/\s/g, "")}`}
+              className="flex items-center gap-2 hover:text-secondary"
+            >
               <Phone className="h-4 w-4" aria-hidden="true" /> {BRAND.phone}
             </a>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1">
@@ -57,49 +97,22 @@ export function Footer() {
           </div>
         </div>
 
-        <div>
-          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-secondary">
-            Explore
-          </h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            {NAV_LINKS.slice(0, 7).map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="hover:text-secondary">{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-secondary">
-            More
-          </h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            {NAV_LINKS.slice(7).map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="hover:text-secondary">{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-secondary">
-            Policies
-          </h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            {FOOTER_POLICY_LINKS.map((l) => (
-              <li key={l}>
-                <Link
-                  to={l === "Privacy Policy" ? "/privacy" : "/compliance"}
-                  className="hover:text-secondary"
-                >
-                  {l}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {COLUMNS.map((col) => (
+          <nav key={col.heading} aria-label={col.heading}>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-secondary">
+              {col.heading}
+            </h2>
+            <ul className="space-y-2 text-sm text-primary-foreground/80">
+              {col.links.map((l) => (
+                <li key={l.label}>
+                  <Link to={l.to} className="hover:text-secondary">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
       </div>
 
       <div className="border-t border-primary-foreground/15">
@@ -107,9 +120,16 @@ export function Footer() {
           <p className="rounded-lg bg-secondary/10 px-3 py-2 text-secondary">
             {COMPLIANCE.classification}. {COMPLIANCE.popia}.
           </p>
-          <p>{COMPLIANCE.disclaimers[0]} {COMPLIANCE.disclaimers[1]}</p>
+          <p>
+            {COMPLIANCE.disclaimers[0]} {COMPLIANCE.disclaimers[1]}
+          </p>
           <p className="pt-2 text-sm font-medium text-primary-foreground/90">
             {FOOTER_TAGLINE}
+          </p>
+          <p className="pt-2">
+            © 2026 Madi-Tota™. Non-live prototype using simulated data.
+            Regulatory classification pending independent legal opinion. No
+            credit is extended on this site.
           </p>
         </div>
       </div>

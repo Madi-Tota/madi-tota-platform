@@ -5,10 +5,18 @@ import { Footer } from "./Footer";
 import { COMPLIANCE } from "@/lib/brand";
 
 export function Layout() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
+
   useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return (
     <div className="flex min-h-dvh flex-col">
