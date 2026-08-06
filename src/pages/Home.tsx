@@ -257,7 +257,7 @@ export default function Home() {
       </Section>
 
       <Suspense fallback={<SectionFallback />}>
-        <FounderStory />
+        <WhyEmployersChoose />
       </Suspense>
 
       <Section muted>
@@ -290,8 +290,37 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
+        <GovernanceTrust />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Philosophy />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <UtlwalaSection />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Journey />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <CommunityImpact />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <RoadAhead />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Chronicles />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
         <Faq />
       </Suspense>
+
 
       <Section>
         <div className="rounded-3xl bg-gradient-card p-8 text-primary-foreground md:p-12">
