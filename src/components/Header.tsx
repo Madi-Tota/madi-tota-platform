@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Link, NavLink as RouterNavLink, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Logo } from "./Logo";
 import { NAV_LINKS } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -13,12 +19,17 @@ import {
 } from "@/components/ui/sheet";
 
 export const PRIMARY_NAV = [
-  { to: "/#why-now", label: "Why Madi-Tota" },
-  { to: "/how-it-works", label: "How it works" },
-  { to: "/#employers", label: "For employers" },
+  { to: "/", label: "Home" },
+  { to: "/employees", label: "For Workers" },
+  { to: "/employers", label: "For Employers" },
   { to: "/#simulators", label: "Simulators" },
-  { to: "/learn", label: "Learn hub" },
-  { to: "/#faq", label: "FAQ" },
+  { to: "/app", label: "App Demo" },
+];
+
+export const COMPANY_NAV = [
+  { to: "/#founder-letter", label: "Our Story" },
+  { to: "/#governance", label: "Governance" },
+  { to: "/#our-journey", label: "Journey" },
 ];
 
 export function Header() {
@@ -39,6 +50,18 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              Company <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-popover">
+              {COMPANY_NAV.map((link) => (
+                <DropdownMenuItem key={link.to} asChild>
+                  <Link to={link.to}>{link.label}</Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
           <LanguageSwitcher />
@@ -46,6 +69,7 @@ export function Header() {
             <Link to="/pilot">Join the pilot</Link>
           </Button>
         </div>
+
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild className="lg:hidden">
