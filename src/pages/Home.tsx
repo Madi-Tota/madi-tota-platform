@@ -216,8 +216,17 @@ export default function Home() {
       </section>
 
       <Suspense fallback={<SectionFallback />}>
+        <FounderLetter />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <FounderCredibilityBar />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
         <WhyNow />
       </Suspense>
+
 
       <Section>
         <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
