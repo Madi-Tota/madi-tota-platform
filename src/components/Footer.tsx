@@ -137,6 +137,14 @@ export function Footer() {
             Regulatory classification pending independent legal opinion. No
             credit is extended on this site.
           </p>
+          <p className="pt-2 text-sm font-medium text-primary-foreground/90">
+            Madi-Tota™ · A Utlwala Tactical System Platform · Built in South
+            Africa 🇿🇦
+          </p>
+          <p className="text-sm font-semibold text-secondary">
+            Re Tla Fenya Mmogo.
+          </p>
+
         </div>
       </div>
     </footer>
