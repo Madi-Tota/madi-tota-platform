@@ -22,11 +22,8 @@ import { FEE_LABELS } from "@/lib/fee-schedule";
 const WhyNow = lazy(() =>
   import("@/components/sections/WhyNow").then((m) => ({ default: m.WhyNow })),
 );
-const FounderStory = lazy(() =>
-  import("@/components/sections/FounderStory").then((m) => ({
-    default: m.FounderStory,
-  })),
-);
+const EmployerValue = lazy(() =>
+
 const EmployerValue = lazy(() =>
   import("@/components/sections/EmployerValue").then((m) => ({
     default: m.EmployerValue,
@@ -184,6 +181,10 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
+            <p className="mt-5 text-sm text-primary-foreground/70">
+              A Utlwala Tactical System platform · Built in South Africa
+            </p>
+
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-primary-foreground/85">
               <span className="font-semibold uppercase tracking-wide text-secondary">
                 Channels:
