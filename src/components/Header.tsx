@@ -87,7 +87,7 @@ export function Header() {
               </SheetClose>
             </div>
             <nav aria-label="Mobile" className="flex flex-col p-2">
-              {PRIMARY_NAV.map((link) => (
+              {[...PRIMARY_NAV, ...COMPANY_NAV].map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
@@ -97,6 +97,7 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
+
               <div className="my-2 border-t" />
               {NAV_LINKS.map((link) => (
                 <RouterNavLink
