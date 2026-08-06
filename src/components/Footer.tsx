@@ -30,11 +30,17 @@ const COLUMNS: { heading: string; links: { label: string; to: string }[] }[] = [
   {
     heading: "Company",
     links: [
-      { label: "Founder story", to: "/#founder-story" },
+      { label: "Meet the Founder", to: "/#founder-letter" },
+      { label: "Our Philosophy", to: "/#philosophy" },
+      { label: "Governance", to: "/#governance" },
+      { label: "Our Journey", to: "/#our-journey" },
+      { label: "Utlwala Tactical System", to: "/#utlwala" },
+      { label: "The Utlwala Chronicles", to: "/#chronicles" },
       { label: "Contact", to: "/contact" },
       { label: "Press & investors", to: "/compliance" },
     ],
   },
+
   {
     heading: "Legal",
     links: [
