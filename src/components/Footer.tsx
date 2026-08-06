@@ -30,11 +30,17 @@ const COLUMNS: { heading: string; links: { label: string; to: string }[] }[] = [
   {
     heading: "Company",
     links: [
-      { label: "Founder story", to: "/#founder-story" },
+      { label: "Meet the Founder", to: "/#founder-letter" },
+      { label: "Our Philosophy", to: "/#philosophy" },
+      { label: "Governance", to: "/#governance" },
+      { label: "Our Journey", to: "/#our-journey" },
+      { label: "Utlwala Tactical System", to: "/#utlwala" },
+      { label: "The Utlwala Chronicles", to: "/#chronicles" },
       { label: "Contact", to: "/contact" },
       { label: "Press & investors", to: "/compliance" },
     ],
   },
+
   {
     heading: "Legal",
     links: [
@@ -131,6 +137,14 @@ export function Footer() {
             Regulatory classification pending independent legal opinion. No
             credit is extended on this site.
           </p>
+          <p className="pt-2 text-sm font-medium text-primary-foreground/90">
+            Madi-Tota™ · A Utlwala Tactical System Platform · Built in South
+            Africa 🇿🇦
+          </p>
+          <p className="text-sm font-semibold text-secondary">
+            Re Tla Fenya Mmogo.
+          </p>
+
         </div>
       </div>
     </footer>

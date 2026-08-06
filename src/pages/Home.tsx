@@ -22,12 +22,8 @@ import { FEE_LABELS } from "@/lib/fee-schedule";
 const WhyNow = lazy(() =>
   import("@/components/sections/WhyNow").then((m) => ({ default: m.WhyNow })),
 );
-const FounderStory = lazy(() =>
-  import("@/components/sections/FounderStory").then((m) => ({
-    default: m.FounderStory,
-  })),
-);
 const EmployerValue = lazy(() =>
+
   import("@/components/sections/EmployerValue").then((m) => ({
     default: m.EmployerValue,
   })),
@@ -45,6 +41,55 @@ const ChannelSimulators = lazy(() =>
     default: m.ChannelSimulators,
   })),
 );
+const FounderLetter = lazy(() =>
+  import("@/components/sections/FounderLetter").then((m) => ({
+    default: m.FounderLetter,
+  })),
+);
+const FounderCredibilityBar = lazy(() =>
+  import("@/components/sections/FounderCredibilityBar").then((m) => ({
+    default: m.FounderCredibilityBar,
+  })),
+);
+const WhyEmployersChoose = lazy(() =>
+  import("@/components/sections/WhyEmployersChoose").then((m) => ({
+    default: m.WhyEmployersChoose,
+  })),
+);
+const GovernanceTrust = lazy(() =>
+  import("@/components/sections/GovernanceTrust").then((m) => ({
+    default: m.GovernanceTrust,
+  })),
+);
+const Philosophy = lazy(() =>
+  import("@/components/sections/Philosophy").then((m) => ({
+    default: m.Philosophy,
+  })),
+);
+const UtlwalaSection = lazy(() =>
+  import("@/components/sections/UtlwalaSection").then((m) => ({
+    default: m.UtlwalaSection,
+  })),
+);
+const Journey = lazy(() =>
+  import("@/components/sections/Journey").then((m) => ({ default: m.Journey })),
+);
+const CommunityImpact = lazy(() =>
+  import("@/components/sections/CommunityImpact").then((m) => ({
+    default: m.CommunityImpact,
+  })),
+);
+const RoadAhead = lazy(() =>
+  import("@/components/sections/RoadAhead").then((m) => ({
+    default: m.RoadAhead,
+  })),
+);
+const Chronicles = lazy(() =>
+  import("@/components/sections/Chronicles").then((m) => ({
+    default: m.Chronicles,
+  })),
+);
+
 
 const SectionFallback = () => (
   <div className="container-tight py-14" aria-hidden="true">
@@ -135,6 +180,10 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
+            <p className="mt-5 text-sm text-primary-foreground/70">
+              A Utlwala Tactical System platform · Built in South Africa
+            </p>
+
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-primary-foreground/85">
               <span className="font-semibold uppercase tracking-wide text-secondary">
                 Channels:
@@ -167,8 +216,17 @@ export default function Home() {
       </section>
 
       <Suspense fallback={<SectionFallback />}>
+        <FounderLetter />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <FounderCredibilityBar />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
         <WhyNow />
       </Suspense>
+
 
       <Section>
         <figure className="overflow-hidden rounded-3xl border border-border shadow-md">
@@ -208,7 +266,7 @@ export default function Home() {
       </Section>
 
       <Suspense fallback={<SectionFallback />}>
-        <FounderStory />
+        <WhyEmployersChoose />
       </Suspense>
 
       <Section muted>
@@ -241,8 +299,37 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
+        <GovernanceTrust />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Philosophy />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <UtlwalaSection />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Journey />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <CommunityImpact />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <RoadAhead />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Chronicles />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
         <Faq />
       </Suspense>
+
 
       <Section>
         <div className="rounded-3xl bg-gradient-card p-8 text-primary-foreground md:p-12">
