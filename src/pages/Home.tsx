@@ -45,6 +45,55 @@ const ChannelSimulators = lazy(() =>
     default: m.ChannelSimulators,
   })),
 );
+const FounderLetter = lazy(() =>
+  import("@/components/sections/FounderLetter").then((m) => ({
+    default: m.FounderLetter,
+  })),
+);
+const FounderCredibilityBar = lazy(() =>
+  import("@/components/sections/FounderCredibilityBar").then((m) => ({
+    default: m.FounderCredibilityBar,
+  })),
+);
+const WhyEmployersChoose = lazy(() =>
+  import("@/components/sections/WhyEmployersChoose").then((m) => ({
+    default: m.WhyEmployersChoose,
+  })),
+);
+const GovernanceTrust = lazy(() =>
+  import("@/components/sections/GovernanceTrust").then((m) => ({
+    default: m.GovernanceTrust,
+  })),
+);
+const Philosophy = lazy(() =>
+  import("@/components/sections/Philosophy").then((m) => ({
+    default: m.Philosophy,
+  })),
+);
+const UtlwalaSection = lazy(() =>
+  import("@/components/sections/UtlwalaSection").then((m) => ({
+    default: m.UtlwalaSection,
+  })),
+);
+const Journey = lazy(() =>
+  import("@/components/sections/Journey").then((m) => ({ default: m.Journey })),
+);
+const CommunityImpact = lazy(() =>
+  import("@/components/sections/CommunityImpact").then((m) => ({
+    default: m.CommunityImpact,
+  })),
+);
+const RoadAhead = lazy(() =>
+  import("@/components/sections/RoadAhead").then((m) => ({
+    default: m.RoadAhead,
+  })),
+);
+const Chronicles = lazy(() =>
+  import("@/components/sections/Chronicles").then((m) => ({
+    default: m.Chronicles,
+  })),
+);
+
 
 const SectionFallback = () => (
   <div className="container-tight py-14" aria-hidden="true">
