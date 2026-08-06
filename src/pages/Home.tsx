@@ -24,7 +24,6 @@ const WhyNow = lazy(() =>
 );
 const EmployerValue = lazy(() =>
 
-const EmployerValue = lazy(() =>
   import("@/components/sections/EmployerValue").then((m) => ({
     default: m.EmployerValue,
   })),
