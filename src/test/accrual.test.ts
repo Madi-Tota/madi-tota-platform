@@ -29,11 +29,19 @@ describe("accrual (DEC-008)", () => {
   });
 });
 
-describe("fees (BQ-017 Option A)", () => {
-  it("worker receives the full amount and repays amount + fee", () => {
+describe("fees (Amendment A1)", () => {
+  it("fee is deducted from the payout and recovery equals the requested amount", () => {
     const q = quote(1000, "CHILL");
     expect(q.fee).toBeCloseTo(58);
-    expect(q.workerReceives).toBe(1000);
-    expect(q.paydayDeduction).toBeCloseTo(1058);
+    expect(q.netReceived).toBeCloseTo(942);
+    expect(q.payrollRecovery).toBe(1000);
+  });
+
+  it("ZAP uses the configured 11.1% rate", () => {
+    const q = quote(1000, "ZAP");
+    expect(q.feeCents).toBe(11100);
+    expect(q.netCents).toBe(88900);
+    expect(q.payrollRecoveryCents).toBe(100000);
   });
 });
+
