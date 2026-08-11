@@ -98,14 +98,15 @@ function Result({
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
         You receive:{" "}
-        <span className="font-semibold text-foreground">{money0(q.workerReceives)}</span>
+        <span className="font-semibold text-foreground">{money0(q.netReceived)}</span>
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
-        Deducted at payday:{" "}
+        Payroll recovery:{" "}
         <span className="font-display font-bold text-foreground">
-          {money0(q.paydayDeduction)}
+          {money0(q.payrollRecovery)}
         </span>
       </p>
+
     </div>
   );
 }
