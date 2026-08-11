@@ -9,7 +9,7 @@ import {
   SIM_PRIOR_DRAWS,
   COMPLIANCE,
 } from "@/lib/brand";
-import { quote, money } from "@/lib/fees";
+import { quote, money, remainingCapacity } from "@/lib/fees";
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
@@ -36,6 +36,7 @@ export function UssdSimulator() {
   const cap = Math.round(acc.available);
   const win = accessWindow("monthly", SIM_DAYS_WORKED);
   const q = quote(amount, product);
+  const remaining = remainingCapacity(cap, 0, amount);
   const rate = q.rate;
   const fee = q.fee;
 
@@ -164,18 +165,19 @@ Enter amount in rand.
 Max ${money(cap)} (earned to date, ${RATES.capPercent}% cap).`;
       case "confirm":
         return `Confirm ${product} draw
-Amount: ${money(amount)}
-Fee (${rate}%): ${money(fee)}
-You receive: ${money(q.workerReceives)}
-Payroll deduction at payday: ${money(q.paydayDeduction)}
+Amount requested: ${money(amount)}
+${product} fee (${rate}%): ${money(fee)}
+You receive: ${money(q.netReceived)}
+Payroll recovery: ${money(q.payrollRecovery)}
+Remaining capacity: ${money(remaining)}
 
 1. Confirm  2. Cancel`;
       case "done":
         return `Confirmed (simulated)
 Ref: ${reference}
 ${product} ${money(amount)} · fee ${money(fee)}
-Paid out: ${money(q.workerReceives)}
-Deduction at payday: ${money(q.paydayDeduction)}
+Paid out: ${money(q.netReceived)}
+Payroll recovery: ${money(q.payrollRecovery)}
 
 Any key to restart.`;
     }

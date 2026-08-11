@@ -9,7 +9,7 @@ import {
   SIM_PRIOR_DRAWS,
   COMPLIANCE,
 } from "@/lib/brand";
-import { quote, money, type ProductId } from "@/lib/fees";
+import { quote, money, remainingCapacity, type ProductId } from "@/lib/fees";
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
@@ -31,8 +31,8 @@ export function WorkerTransparencyWidget() {
 
   const safeAmount = Math.min(amount, Math.max(100, available));
   const q = quote(safeAmount, product);
-  const takeHome = salary - q.paydayDeduction;
-  const shareOfSalary = salary ? (q.paydayDeduction / salary) * 100 : 0;
+  const takeHome = salary - q.payrollRecovery;
+  const shareOfSalary = salary ? (q.payrollRecovery / salary) * 100 : 0;
   const win = accessWindow("monthly", SIM_DAYS_WORKED);
 
   return (
@@ -129,10 +129,11 @@ export function WorkerTransparencyWidget() {
         {(
           [
             [`Fee (${q.rate}%)`, money(q.fee)],
-            ["You receive today", money(q.workerReceives)],
-            ["Deducted at payday", money(q.paydayDeduction)],
-            ["Take-home after deduction", money(takeHome)],
-            ["Deduction as share of pay", `${shareOfSalary.toFixed(1)}%`],
+            ["You receive today", money(q.netReceived)],
+            ["Payroll recovery", money(q.payrollRecovery)],
+            ["Take-home after recovery", money(takeHome)],
+            ["Recovery as share of pay", `${shareOfSalary.toFixed(1)}%`],
+            ["Remaining monthly capacity", money(remainingCapacity(acc.cap, acc.priorDraws, safeAmount))],
           ] as Array<[string, string]>
         ).map(([k, v]) => (
           <div key={k} className="flex items-center justify-between gap-4 px-4 py-3 text-sm">

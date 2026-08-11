@@ -24,8 +24,8 @@ export function FeeCalculator() {
       <p className="mb-6 text-sm text-muted-foreground">
         Illustrative only. Figures are examples, not an offer. CHILL is{" "}
         {RATES.chill}% per draw, ZAP is {RATES.zap}% per draw, with a{" "}
-        {RATES.capPercent}% monthly salary access cap. You always receive the full
-        amount you request; the fee is added to the payday deduction.
+        {RATES.capPercent}% monthly salary access cap. The fee is deducted from
+        what you receive; payroll recovery is always the amount you requested.
       </p>
 
       <div className="space-y-6">

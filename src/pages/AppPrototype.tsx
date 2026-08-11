@@ -394,8 +394,8 @@ function Fee({ go, product, amount }: { go: (s: ScreenId) => void; product: "CHI
           <Row k="Option" v={`${product} (${rate}% per draw)`} />
           <Row k="Draw amount" v={fmt(amount)} />
           <Row k="Fee" v={fmt(fee)} />
-          <Row k="You receive" v={fmt(q.workerReceives)} />
-          <Row k="Deducted at payday" v={fmt(q.paydayDeduction)} highlight />
+          <Row k="You receive" v={fmt(q.netReceived)} />
+          <Row k="Payroll recovery" v={fmt(q.payrollRecovery)} highlight />
         </div>
         <Note>You are seeing your exact fee before confirming — always.</Note>
       </div>
