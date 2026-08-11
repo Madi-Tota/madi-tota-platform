@@ -171,7 +171,7 @@ You receive: ${money(q.netReceived)}
 Payroll recovery: ${money(q.payrollRecovery)}
 Remaining capacity: ${money(remaining)}
 
-1. Confirm  2. Cancel`;
+Confirm? 1. Accept 2. Cancel`;
       case "done":
         return `Confirmed (simulated)
 Ref: ${reference}
