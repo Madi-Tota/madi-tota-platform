@@ -44,11 +44,19 @@ export function WhatsAppDemo() {
   const [amount, setAmount] = useState(0);
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   function say(text: string) {
     setMessages((m) => [...m, { from: "bot", text }]);
     requestAnimationFrame(() =>
       endRef.current?.scrollIntoView({ block: "nearest" }),
+    );
+  }
+
+  function quickReply(value: string) {
+    setDraft(value);
+    requestAnimationFrame(() =>
+      formRef.current?.requestSubmit(),
     );
   }
 
@@ -175,7 +183,23 @@ export function WhatsAppDemo() {
           <div ref={endRef} />
         </div>
 
-        <form onSubmit={handleSend} className="mt-3 flex gap-2">
+        {step === "confirm" && (
+          <div className="mt-3 flex gap-2">
+            <Button type="button" className="flex-1" onClick={() => quickReply("YES")}>
+              Confirm
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1"
+              onClick={() => quickReply("NO")}
+            >
+              Cancel
+            </Button>
+          </div>
+        )}
+
+        <form ref={formRef} onSubmit={handleSend} className="mt-3 flex gap-2">
           <label htmlFor="wa-input" className="sr-only">
             Message the Madi-Tota assistant
           </label>

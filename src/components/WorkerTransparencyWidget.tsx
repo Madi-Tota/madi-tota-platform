@@ -15,6 +15,7 @@ import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
 import { EarningsBar } from "./EarningsBar";
 import { Note } from "./primitives";
+import { DrawConfirmation } from "./DrawConfirmation";
 
 /** Worker-side transparency widget: shows the real cost of a draw before confirming. */
 export function WorkerTransparencyWidget() {
@@ -28,6 +29,7 @@ export function WorkerTransparencyWidget() {
   });
   const available = Math.round(acc.available);
   const [amount, setAmount] = useState(Math.round(available / 2));
+  const [consented, setConsented] = useState(false);
 
   const safeAmount = Math.min(amount, Math.max(100, available));
   const q = quote(safeAmount, product);
@@ -142,6 +144,25 @@ export function WorkerTransparencyWidget() {
           </div>
         ))}
       </dl>
+
+      <div className="mt-6">
+        <DrawConfirmation
+          q={q}
+          consented={consented}
+          onConsentChange={setConsented}
+          remaining={remainingCapacity(acc.cap, acc.priorDraws, safeAmount)}
+          id="wt-consent"
+        />
+        <Button
+          type="button"
+          variant="hero"
+          size="lg"
+          className="mt-3 w-full"
+          disabled={!consented}
+        >
+          Confirm request (simulation)
+        </Button>
+      </div>
 
       <div className="mt-5">
         <Note>
