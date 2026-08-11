@@ -46,8 +46,8 @@ export function WorkerTransparencyWidget() {
         <SimBadge />
       </div>
       <p className="mb-5 text-sm text-muted-foreground">
-        See the full cost of a draw before confirming — fee, what you receive and
-        the payday deduction. {COMPLIANCE.simNote}
+        See the full cost of a draw before confirming — the fee, what you receive
+        and the amount recovered from payroll. {COMPLIANCE.simNote}
       </p>
 
       <div className="flex gap-2">
