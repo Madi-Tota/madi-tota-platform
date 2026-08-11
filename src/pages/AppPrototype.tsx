@@ -11,7 +11,9 @@ import { PageHero, Section, ProtoBadge, Note } from "@/components/primitives";
 import {
   LANGUAGES, RATES, BRAND, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS,
 } from "@/lib/brand";
-import { quote, money0 } from "@/lib/fees";
+import { quote, money0, remainingCapacity } from "@/lib/fees";
+import { DrawConfirmation } from "@/components/DrawConfirmation";
+
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { EarningsBar } from "@/components/EarningsBar";
