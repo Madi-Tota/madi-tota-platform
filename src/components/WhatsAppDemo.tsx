@@ -10,7 +10,7 @@ import {
   SIM_PRIOR_DRAWS,
   COMPLIANCE,
 } from "@/lib/brand";
-import { quote, money, type ProductId } from "@/lib/fees";
+import { quote, money, remainingCapacity, CONSENT_STATEMENT, type ProductId } from "@/lib/fees";
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
@@ -44,11 +44,19 @@ export function WhatsAppDemo() {
   const [amount, setAmount] = useState(0);
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   function say(text: string) {
     setMessages((m) => [...m, { from: "bot", text }]);
     requestAnimationFrame(() =>
       endRef.current?.scrollIntoView({ block: "nearest" }),
+    );
+  }
+
+  function quickReply(value: string) {
+    setDraft(value);
+    requestAnimationFrame(() =>
+      formRef.current?.requestSubmit(),
     );
   }
 
@@ -100,7 +108,7 @@ export function WhatsAppDemo() {
       setStep("confirm");
       const q = quote(n, product);
       say(
-        `${product} draw\nAmount: ${money(q.amount)}\nFee (${q.rate}%): ${money(q.fee)}\nYou receive: ${money(q.workerReceives)}\nPayroll deduction at payday: ${money(q.paydayDeduction)}\n\nReply YES to confirm or NO to cancel.`,
+        `${product} draw\nAmount requested: ${money(q.amount)}\n${product} fee (${q.rate}%): ${money(q.fee)}\nYou receive: ${money(q.netReceived)}\nPayroll recovery: ${money(q.payrollRecovery)}\nRemaining capacity: ${money(remainingCapacity(cap, 0, n))}\n\n${CONSENT_STATEMENT}\n\nReply YES to confirm or NO to cancel.`,
       );
       return;
     }
@@ -110,7 +118,7 @@ export function WhatsAppDemo() {
         const q = quote(amount, product);
         setStep("done");
         say(
-          `Confirmed (simulation only). ${money(q.workerReceives)} would be paid out and ${money(q.paydayDeduction)} recovered at payday. Reply RESTART to start again.`,
+          `Confirmed (simulation only). ${money(q.netReceived)} would be paid out and ${money(q.payrollRecovery)} recovered from payroll. Reply RESTART to start again.`,
         );
         return;
       }
@@ -175,7 +183,23 @@ export function WhatsAppDemo() {
           <div ref={endRef} />
         </div>
 
-        <form onSubmit={handleSend} className="mt-3 flex gap-2">
+        {step === "confirm" && (
+          <div className="mt-3 flex gap-2">
+            <Button type="button" className="flex-1" onClick={() => quickReply("YES")}>
+              Confirm
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1"
+              onClick={() => quickReply("NO")}
+            >
+              Cancel
+            </Button>
+          </div>
+        )}
+
+        <form ref={formRef} onSubmit={handleSend} className="mt-3 flex gap-2">
           <label htmlFor="wa-input" className="sr-only">
             Message the Madi-Tota assistant
           </label>

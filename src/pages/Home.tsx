@@ -61,6 +61,11 @@ const GovernanceTrust = lazy(() =>
     default: m.GovernanceTrust,
   })),
 );
+const YourAgreement = lazy(() =>
+  import("@/components/sections/YourAgreement").then((m) => ({
+    default: m.YourAgreement,
+  })),
+);
 const Philosophy = lazy(() =>
   import("@/components/sections/Philosophy").then((m) => ({
     default: m.Philosophy,
@@ -300,6 +305,10 @@ export default function Home() {
 
       <Suspense fallback={<SectionFallback />}>
         <GovernanceTrust />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <YourAgreement />
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>

@@ -11,7 +11,9 @@ import { PageHero, Section, ProtoBadge, Note } from "@/components/primitives";
 import {
   LANGUAGES, RATES, BRAND, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS,
 } from "@/lib/brand";
-import { quote, money0 } from "@/lib/fees";
+import { quote, money0, remainingCapacity } from "@/lib/fees";
+import { DrawConfirmation } from "@/components/DrawConfirmation";
+
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { EarningsBar } from "@/components/EarningsBar";
@@ -380,32 +382,41 @@ function Choose({ go, product, setProduct, amount, setAmount }: Omit<SP, "screen
 
 function Fee({ go, product, amount }: { go: (s: ScreenId) => void; product: "CHILL" | "ZAP"; amount: number }) {
   const q = quote(amount, product);
-  const rate = q.rate;
-  const fee = q.fee;
+  const [consented, setConsented] = useState(false);
+  const remaining = remainingCapacity(SIM_ACCRUAL.cap, SIM_PRIOR_DRAWS, amount);
   return (
     <div className="flex h-full flex-col">
       <AppBar title="Confirm your fee" onBack={() => go("choose")} />
-      <div className="flex-1 space-y-4 p-5">
+      <div className="flex-1 space-y-4 overflow-y-auto p-5">
         <div className="rounded-2xl bg-gradient-card p-5 text-primary-foreground">
           <p className="text-sm text-primary-foreground/80">You will receive</p>
-          <p className="font-display text-4xl font-extrabold">{fmt(amount)}</p>
+          <p className="font-display text-4xl font-extrabold">{fmt(q.netReceived)}</p>
         </div>
-        <div className="space-y-2 rounded-2xl border border-border bg-card p-5 text-sm">
-          <Row k="Option" v={`${product} (${rate}% per draw)`} />
-          <Row k="Draw amount" v={fmt(amount)} />
-          <Row k="Fee" v={fmt(fee)} />
-          <Row k="You receive" v={fmt(q.workerReceives)} />
-          <Row k="Deducted at payday" v={fmt(q.paydayDeduction)} highlight />
-        </div>
+        <DrawConfirmation
+          q={q}
+          consented={consented}
+          onConsentChange={setConsented}
+          remaining={remaining}
+          id="app-consent"
+        />
         <Note>You are seeing your exact fee before confirming — always.</Note>
       </div>
       <div className="space-y-2 p-5">
-        <Button onClick={() => go("submitted")} variant="hero" size="lg" className="w-full">Confirm request</Button>
+        <Button
+          onClick={() => go("submitted")}
+          variant="hero"
+          size="lg"
+          className="w-full"
+          disabled={!consented}
+        >
+          Confirm request
+        </Button>
         <Button onClick={() => go("choose")} variant="ghost" size="lg" className="w-full">Go back</Button>
       </div>
     </div>
   );
 }
+
 
 function Submitted({ go, product, amount }: { go: (s: ScreenId) => void; product: "CHILL" | "ZAP"; amount: number }) {
   return (

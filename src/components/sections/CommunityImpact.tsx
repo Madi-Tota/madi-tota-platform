@@ -4,26 +4,38 @@ const PERSONAS = [
   {
     title: "Security Officers",
     body: "Shift-based. Often underserved. USSD-first access.",
+    img: "/brand/worker-security_officer.jpg",
+    alt: "Madi-Tota concept image of security officers on shift outside a city building",
   },
   {
     title: "BPO & Call Centre Agents",
     body: "High turnover. Young workforce. WhatsApp-native.",
+    img: null,
+    alt: "",
   },
   {
     title: "Retail Staff",
     body: "Multiple locations. Thin margins. Real payroll complexity.",
+    img: "/brand/worker-retail.jpg",
+    alt: "Madi-Tota concept image of neighbourhood retail staff serving a customer",
   },
   {
     title: "Domestic Workers",
     body: "Often excluded from formal financial products entirely.",
+    img: "/brand/worker-domestic_workers.jpg",
+    alt: "Madi-Tota concept image of two domestic workers checking a phone at sunset",
   },
   {
     title: "Healthcare Workers",
     body: "Shift-based. Essential. Deserve financial dignity.",
+    img: "/brand/worker-healthcare.jpg",
+    alt: "Madi-Tota concept image of community health staff outside a clinic",
   },
   {
     title: "Logistics & Mining",
     body: "Remote sites. Connectivity challenges. USSD-critical.",
+    img: "/brand/worker-mining.jpg",
+    alt: "Madi-Tota concept image of mining crew at a platinum shaft at sunrise",
   },
 ];
 
@@ -40,9 +52,21 @@ export function CommunityImpact() {
             key={p.title}
             className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
           >
-            <div className="grid aspect-[4/3] place-items-center border-b border-dashed border-border bg-muted p-4 text-center text-xs font-medium text-muted-foreground">
-              [PHOTO PENDING — CEO approval required]
-            </div>
+            {p.img ? (
+              <img
+                src={p.img}
+                alt={p.alt}
+                width={960}
+                height={720}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/3] w-full border-b border-border object-cover"
+              />
+            ) : (
+              <div className="grid aspect-[4/3] place-items-center border-b border-dashed border-border bg-muted p-4 text-center text-xs font-medium text-muted-foreground">
+                [PHOTO PENDING — CEO approval required]
+              </div>
+            )}
             <div className="p-6">
               <h3 className="font-display text-lg font-semibold text-foreground">
                 {p.title}
@@ -55,8 +79,9 @@ export function CommunityImpact() {
         ))}
       </div>
       <p className="mt-8 text-sm text-muted-foreground">
-        Real photography. Real South Africans. Not stock images. [PHOTOGRAPHY
-        COMMISSION PENDING — CEO approval]
+        Illustrative brand imagery — CEO-approved. Remaining slots stay marked
+        [PHOTOGRAPHY COMMISSION PENDING — CEO approval] until real photography is
+        supplied.
       </p>
     </Section>
   );

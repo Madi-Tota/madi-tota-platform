@@ -34,7 +34,7 @@
     "amount": "Amount",
     "fee": "Fee ({{rate}}%)",
     "youReceive": "You receive",
-    "paydayDeduction": "Deducted at payday",
+    "paydayDeduction": "Payroll recovery",
     "chill": "CHILL",
     "zap": "ZAP"
   },

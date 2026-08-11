@@ -9,7 +9,7 @@ export function ChannelSimulators() {
         center
         eyebrow="Try the channels"
         title="USSD and assistant simulators"
-        subtitle="Working simulations of the low-data channels workers would use — key in real amounts and watch the cap, fee and payday deduction recalculate."
+        subtitle="Working simulations of the low-data channels workers would use — key in real amounts and watch the cap, fee, payout and payroll recovery recalculate."
       />
       <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
         <UssdSimulator />

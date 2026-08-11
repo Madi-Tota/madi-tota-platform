@@ -9,12 +9,13 @@ import {
   SIM_PRIOR_DRAWS,
   COMPLIANCE,
 } from "@/lib/brand";
-import { quote, money, type ProductId } from "@/lib/fees";
+import { quote, money, remainingCapacity, type ProductId } from "@/lib/fees";
 import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
 import { EarningsBar } from "./EarningsBar";
 import { Note } from "./primitives";
+import { DrawConfirmation } from "./DrawConfirmation";
 
 /** Worker-side transparency widget: shows the real cost of a draw before confirming. */
 export function WorkerTransparencyWidget() {
@@ -28,11 +29,12 @@ export function WorkerTransparencyWidget() {
   });
   const available = Math.round(acc.available);
   const [amount, setAmount] = useState(Math.round(available / 2));
+  const [consented, setConsented] = useState(false);
 
   const safeAmount = Math.min(amount, Math.max(100, available));
   const q = quote(safeAmount, product);
-  const takeHome = salary - q.paydayDeduction;
-  const shareOfSalary = salary ? (q.paydayDeduction / salary) * 100 : 0;
+  const takeHome = salary - q.payrollRecovery;
+  const shareOfSalary = salary ? (q.payrollRecovery / salary) * 100 : 0;
   const win = accessWindow("monthly", SIM_DAYS_WORKED);
 
   return (
@@ -44,8 +46,8 @@ export function WorkerTransparencyWidget() {
         <SimBadge />
       </div>
       <p className="mb-5 text-sm text-muted-foreground">
-        See the full cost of a draw before confirming — fee, what you receive and
-        the payday deduction. {COMPLIANCE.simNote}
+        See the full cost of a draw before confirming — the fee, what you receive
+        and the amount recovered from payroll. {COMPLIANCE.simNote}
       </p>
 
       <div className="flex gap-2">
@@ -129,10 +131,11 @@ export function WorkerTransparencyWidget() {
         {(
           [
             [`Fee (${q.rate}%)`, money(q.fee)],
-            ["You receive today", money(q.workerReceives)],
-            ["Deducted at payday", money(q.paydayDeduction)],
-            ["Take-home after deduction", money(takeHome)],
-            ["Deduction as share of pay", `${shareOfSalary.toFixed(1)}%`],
+            ["You receive today", money(q.netReceived)],
+            ["Payroll recovery", money(q.payrollRecovery)],
+            ["Take-home after recovery", money(takeHome)],
+            ["Recovery as share of pay", `${shareOfSalary.toFixed(1)}%`],
+            ["Remaining monthly capacity", money(remainingCapacity(acc.cap, acc.priorDraws, safeAmount))],
           ] as Array<[string, string]>
         ).map(([k, v]) => (
           <div key={k} className="flex items-center justify-between gap-4 px-4 py-3 text-sm">
@@ -141,6 +144,25 @@ export function WorkerTransparencyWidget() {
           </div>
         ))}
       </dl>
+
+      <div className="mt-6">
+        <DrawConfirmation
+          q={q}
+          consented={consented}
+          onConsentChange={setConsented}
+          remaining={remainingCapacity(acc.cap, acc.priorDraws, safeAmount)}
+          id="wt-consent"
+        />
+        <Button
+          type="button"
+          variant="hero"
+          size="lg"
+          className="mt-3 w-full"
+          disabled={!consented}
+        >
+          Confirm request (simulation)
+        </Button>
+      </div>
 
       <div className="mt-5">
         <Note>

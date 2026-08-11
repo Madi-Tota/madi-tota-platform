@@ -5,9 +5,15 @@ export function FounderCredibilityBar() {
     <div className="border-y border-border bg-card">
       <div className="container-tight flex flex-col items-start gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-dashed border-border bg-muted text-center text-[8px] leading-tight text-muted-foreground">
-            PHOTO PENDING
-          </div>
+          <img
+            src="/brand/worker-lebo-koloi.jpg"
+            alt="Lebo Koloi, Founder and CEO of Madi-Tota"
+            width={56}
+            height={56}
+            loading="lazy"
+            decoding="async"
+            className="h-14 w-14 shrink-0 rounded-full border border-border object-cover"
+          />
           <div className="text-sm">
             <p className="font-display text-base font-semibold text-foreground">
               Lebo Koloi

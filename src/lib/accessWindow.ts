@@ -73,3 +73,58 @@ export function accessWindow(
     label,
   };
 }
+
+/**
+ * AMENDMENT A1 — employer-configured access window.
+ * OPEN  = payday + 7 days
+ * CLOSED = next payday − 5 days
+ * If the employer's pay dates are unknown, the window FAILS CLOSED.
+ */
+export const WINDOW_CLOSED_MESSAGE =
+  "Your access window is closed. Wage access opens 7 days after payday and closes 5 days before the next payday. Please try again once your next window opens.";
+
+export const WINDOW_UNKNOWN_MESSAGE =
+  "We cannot confirm your employer's pay dates, so access is closed. Please contact your employer's payroll administrator.";
+
+export interface EmployerWindowConfig {
+  /** ISO date of the last payday, or undefined if unknown. */
+  lastPayday?: string;
+  /** ISO date of the next payday, or undefined if unknown. */
+  nextPayday?: string;
+}
+
+export interface EmployerWindowResult {
+  isOpen: boolean;
+  status: "open" | "closed" | "unknown";
+  message: string;
+}
+
+const DAY = 86_400_000;
+
+export function employerAccessWindow(
+  config: EmployerWindowConfig,
+  today: Date = new Date(),
+): EmployerWindowResult {
+  const last = config.lastPayday ? new Date(config.lastPayday) : null;
+  const next = config.nextPayday ? new Date(config.nextPayday) : null;
+  if (
+    !last ||
+    !next ||
+    Number.isNaN(last.getTime()) ||
+    Number.isNaN(next.getTime())
+  ) {
+    // Fail closed.
+    return { isOpen: false, status: "unknown", message: WINDOW_UNKNOWN_MESSAGE };
+  }
+  const opens = last.getTime() + WINDOW_OPENS_AFTER_PAYDAY_DAYS * DAY;
+  const closes = next.getTime() - WINDOW_CLOSES_BEFORE_PAYDAY_DAYS * DAY;
+  const now = today.getTime();
+  const isOpen = now >= opens && now <= closes;
+  return {
+    isOpen,
+    status: isOpen ? "open" : "closed",
+    message: isOpen
+      ? "Your access window is open."
+      : WINDOW_CLOSED_MESSAGE,
+  };
+}

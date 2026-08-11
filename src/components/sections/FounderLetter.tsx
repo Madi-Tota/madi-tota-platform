@@ -38,8 +38,16 @@ export function FounderLetter() {
         </div>
 
         <figure className="mt-10 w-full max-w-[240px]">
-          <div className="grid aspect-[4/5] place-items-center rounded-2xl border border-dashed border-border bg-muted p-4 text-center text-xs font-medium text-muted-foreground">
-            [FOUNDER PORTRAIT — pending CEO-approved photograph]
+          <div className="overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
+            <img
+              src="/brand/worker-lebo-koloi.jpg"
+              alt="Lebo Koloi, Founder and CEO of Madi-Tota"
+              width={560}
+              height={700}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full object-cover"
+            />
           </div>
           <figcaption className="mt-3 text-sm font-medium text-foreground">
             Lebo Koloi — Founder &amp; CEO

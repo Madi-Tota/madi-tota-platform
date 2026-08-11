@@ -24,17 +24,17 @@ export function FounderStory() {
         <figure className="mx-auto w-full max-w-[280px]">
           <div className="overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
             <img
-              src="/placeholder.svg"
-              alt="Founder portrait"
+              src="/brand/worker-lebo-koloi.jpg"
+              alt="Lebo Koloi, Founder and CEO of Madi-Tota"
               width={560}
               height={700}
               loading="lazy"
               decoding="async"
-              className="aspect-[4/5] w-full object-cover grayscale"
+              className="aspect-[4/5] w-full object-cover"
             />
           </div>
           <figcaption className="mt-3 text-xs text-muted-foreground">
-            Portrait placeholder — awaiting supplied image.
+            Lebo Koloi — Founder & CEO, Madi-Tota.
           </figcaption>
         </figure>
 
