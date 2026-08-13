@@ -66,6 +66,26 @@ const YourAgreement = lazy(() =>
     default: m.YourAgreement,
   })),
 );
+const FollowTheRand = lazy(() =>
+  import("@/components/sections/FollowTheRand").then((m) => ({
+    default: m.FollowTheRand,
+  })),
+);
+const ExceptionPath = lazy(() =>
+  import("@/components/sections/ExceptionPath").then((m) => ({
+    default: m.ExceptionPath,
+  })),
+);
+const Auditability = lazy(() =>
+  import("@/components/sections/Auditability").then((m) => ({
+    default: m.Auditability,
+  })),
+);
+const WorkerAgreementFlow = lazy(() =>
+  import("@/components/WorkerAgreementFlow").then((m) => ({
+    default: m.WorkerAgreementFlow,
+  })),
+);
 const Philosophy = lazy(() =>
   import("@/components/sections/Philosophy").then((m) => ({
     default: m.Philosophy,
