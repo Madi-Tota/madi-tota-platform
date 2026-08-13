@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PageHero, Section, SectionHeading, FeatureCard, Note } from "@/components/primitives";
 import { Button } from "@/components/ui/button";
 import { COMPLIANCE, FOOTER_POLICY_LINKS, RATES, BRAND } from "@/lib/brand";
+import { REGULATORY_STATEMENT, DOCTRINE_LINE } from "@/lib/governance";
 
 const PRINCIPLES = [
   { icon: Eye, title: "Transparency", text: `Workers see CHILL ${RATES.chill}% or ZAP ${RATES.zap}% per draw before confirming. No hidden fees.` },
@@ -15,7 +16,7 @@ const POSTURE = [
   {
     icon: Gavel,
     title: "Regulatory classification",
-    text: `${COMPLIANCE.classification}. Whether the model falls inside or outside the NCA is a question for independent counsel, and we will publish the opinion position before any live rollout.`,
+    text: REGULATORY_STATEMENT,
   },
   {
     icon: Landmark,
@@ -82,6 +83,7 @@ export default function Compliance() {
             as a claim of approval, licensing or completed audit, and no figure
             shown anywhere in this prototype represents a live transaction.
           </p>
+          <p className="mt-3 text-sm text-muted-foreground">{DOCTRINE_LINE}</p>
         </div>
       </Section>
 

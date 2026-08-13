@@ -1,5 +1,6 @@
 import { Section, SectionHeading } from "@/components/primitives";
 import { FileSignature, Scale } from "lucide-react";
+import { DOCTRINE_LINE, REGULATORY_STATEMENT } from "@/lib/governance";
 
 export function YourAgreement() {
   return (
@@ -20,7 +21,7 @@ export function YourAgreement() {
             figures by ticking a box that is never pre-ticked. No tick, no
             transaction. Recovery is a single payroll deduction of the amount you
             requested — nothing rolls over, nothing compounds, and no further amount
-            is added later.
+            is added later. {DOCTRINE_LINE}
           </p>
         </article>
         <article className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
@@ -28,11 +29,8 @@ export function YourAgreement() {
             <Scale className="h-5 w-5" aria-hidden="true" />
           </span>
           <p className="text-sm leading-relaxed text-foreground">
-            Madi-Tota is designed around access to already-earned wages rather than
-            conventional lending. The final regulatory characterisation of the
-            product rests with independent legal counsel and the relevant
-            authorities, and that opinion is a launch gate. Nothing on this page is
-            legal advice, an offer, or a regulatory conclusion.
+{REGULATORY_STATEMENT} Nothing on this page is legal advice, an
+            offer, or a regulatory conclusion.
           </p>
         </article>
       </div>

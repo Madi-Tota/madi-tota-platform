@@ -8,6 +8,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { PageHero, Section, ProtoBadge, Note } from "@/components/primitives";
+import { StageBadge } from "@/components/StageBadge";
+import { DoctrineLine } from "@/components/DoctrineLine";
 import {
   LANGUAGES, RATES, BRAND, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS,
 } from "@/lib/brand";
@@ -69,7 +71,10 @@ export default function AppPrototype() {
         title="The Madi-Tota™ app, screen by screen"
         subtitle="Click any screen on the left to explore the full employee journey and the employer dashboard. All data is mock."
       >
-        <ProtoBadge className="bg-white/15 text-primary-foreground" />
+        <div className="flex flex-wrap gap-2">
+          <ProtoBadge className="bg-white/15 text-primary-foreground" />
+          <StageBadge stage="prototype" className="bg-white/15 text-primary-foreground" />
+        </div>
       </PageHero>
 
       <Section>

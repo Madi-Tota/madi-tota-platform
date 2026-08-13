@@ -66,6 +66,26 @@ const YourAgreement = lazy(() =>
     default: m.YourAgreement,
   })),
 );
+const FollowTheRand = lazy(() =>
+  import("@/components/sections/FollowTheRand").then((m) => ({
+    default: m.FollowTheRand,
+  })),
+);
+const ExceptionPath = lazy(() =>
+  import("@/components/sections/ExceptionPath").then((m) => ({
+    default: m.ExceptionPath,
+  })),
+);
+const Auditability = lazy(() =>
+  import("@/components/sections/Auditability").then((m) => ({
+    default: m.Auditability,
+  })),
+);
+const WorkerAgreementFlow = lazy(() =>
+  import("@/components/WorkerAgreementFlow").then((m) => ({
+    default: m.WorkerAgreementFlow,
+  })),
+);
 const Philosophy = lazy(() =>
   import("@/components/sections/Philosophy").then((m) => ({
     default: m.Philosophy,
@@ -306,6 +326,32 @@ export default function Home() {
       <Suspense fallback={<SectionFallback />}>
         <GovernanceTrust />
       </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <FollowTheRand />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <ExceptionPath />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Auditability />
+      </Suspense>
+
+      <Section muted id="worker-agreement">
+        <SectionHeading
+          center
+          eyebrow="Consent"
+          title="Worker agreement and payroll recovery consent"
+          subtitle="Registration is blocked until the employer relationship is validated and the worker gives affirmative consent."
+        />
+        <div className="mx-auto mt-10 max-w-xl">
+          <Suspense fallback={<SectionFallback />}>
+            <WorkerAgreementFlow />
+          </Suspense>
+        </div>
+      </Section>
 
       <Suspense fallback={<SectionFallback />}>
         <YourAgreement />

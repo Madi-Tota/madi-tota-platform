@@ -17,6 +17,7 @@ import FieldAgent from "./pages/FieldAgent";
 import Compliance from "./pages/Compliance";
 import Contact from "./pages/Contact";
 import AppPrototype from "./pages/AppPrototype";
+import InvestorDemo from "./pages/InvestorDemo";
 import PrivacyNotice from "./pages/PrivacyNotice";
 import LegalPlaceholder from "./pages/LegalPlaceholder";
 import NotFound from "./pages/NotFound.tsx";
@@ -51,6 +52,7 @@ const App = () => (
             />
             <Route path="/contact" element={<Contact />} />
             <Route path="/app" element={<AppPrototype />} />
+            <Route path="/investor-demo" element={<InvestorDemo />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
