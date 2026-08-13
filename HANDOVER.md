@@ -24,6 +24,34 @@ fallback so all unknown paths rewrite to `/index.html`.
 GitHub export: use the Lovable editor — **GitHub → Connect / Export to GitHub**.
 The exported repository is the source of truth for CTO handover.
 
+### GitHub Pages (production, `maditota.co.za`)
+
+`.github/workflows/deploy-pages.yml` builds and deploys `dist/` to GitHub
+Pages on every push to `main` (or manual dispatch). SPA fallback is handled
+via the `public/404.html` → `index.html` redirect pattern (rafgraph/spa-github-pages),
+since Pages has no server-side rewrites and this app uses `BrowserRouter`.
+`public/CNAME` pins the custom domain.
+
+One-time setup (repo admin, cannot be done via the GitHub API used by this
+session): **Settings → Pages → Build and deployment → Source: "GitHub
+Actions"**. After that the workflow above owns every deploy.
+
+DNS at the registrar (domains.co.za), apex `maditota.co.za` as the canonical
+domain, `www` redirecting to it:
+
+| Host | Type | Value |
+| --- | --- | --- |
+| `@` | A | `185.199.108.153` |
+| `@` | A | `185.199.109.153` |
+| `@` | A | `185.199.110.153` |
+| `@` | A | `185.199.111.153` |
+| `@` | AAAA (optional) | `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153` |
+| `www` | CNAME | `madi-tota.github.io.` |
+
+GitHub issues the HTTPS certificate automatically once DNS resolves and the
+custom domain is verified in Settings → Pages — this can take anywhere from
+minutes to ~24h, so configure DNS well ahead of anything time-sensitive.
+
 ## 2. Environment variables (names only — never commit values)
 
 The frozen prototype runs with **no** environment variables. The names below are
