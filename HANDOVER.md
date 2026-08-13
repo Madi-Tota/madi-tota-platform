@@ -55,6 +55,20 @@ Brand and imagery (`public/brand/`):
 - `vertical-clinic.webp`, `vertical-logistics.webp`, `vertical-retail.webp` —
   future-vertical concepts. Caption mandatory: “Illustrative concept — future vertical”.
 - Founder portrait — used in Founder Letter, Founder Story, credibility bar.
+- `utlwala-tactical-systems-lockup.png` (canonical, CEO-provided) +
+  `utlwala-tactical-systems-lockup.webp` (optimised twin, used in-page) — Utlwala
+  parent-company gold shield emblem. Placements: Utlwala Vision section (72–96px,
+  dark panel) and footer (40–48px), per CTO Directive 010-A §2A. Alt text
+  (verbatim): “Utlwala Tactical Systems — gold shield emblem. African Systems.
+  Global Standard.” Never used at hero size; never replaces or resizes the
+  Madi-Tota lockup; never watermarked; tagline never cropped.
+- `bpo-call-centre.webp` (optimised, ≤300KB; source kept at
+  `source/bpo-call-centre-source.webp`) — BPO/call-centre workforce photo.
+  Placement: lead image, Employers section only, 16:9 crop, per CTO Directive
+  010-A §2B. Caption (verbatim): “BPO & CX workforces — our pilot segment.
+  Shift-based, WhatsApp/USSD-native.” Alt text (verbatim): “South African BPO
+  and call-centre agents wearing headsets at workstations with performance
+  dashboards.” No text overlays, no filters, no use outside this section.
 
 Any image slot without an approved asset renders
 “[PHOTO PENDING — CEO approval required]” /
