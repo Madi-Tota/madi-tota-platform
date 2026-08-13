@@ -41,8 +41,10 @@ export const VAS_PRICING: Record<string, VasPricing> = {
   },
 };
 
+export const VAS_SEPARATE_LABEL = "Separate commercial model — pending policy approval.";
+
 export const VAS_DISCLOSURE =
-  "Value-added services are priced separately from wage access. The product cost and the service fee are shown before you confirm.";
+  "Separate commercial model — pending policy approval. Value-added services are priced separately from wage access and never form part of a wage-access fee quote.";
 
 export function vasQuote(
   productKey: keyof typeof VAS_PRICING | string,

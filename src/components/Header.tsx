@@ -24,6 +24,7 @@ export const PRIMARY_NAV = [
   { to: "/employers", label: "For Employers" },
   { to: "/#simulators", label: "Simulators" },
   { to: "/app", label: "App Demo" },
+  { to: "/investor-demo", label: "Investor Demo" },
 ];
 
 export const COMPANY_NAV = [

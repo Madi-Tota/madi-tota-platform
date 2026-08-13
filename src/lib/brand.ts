@@ -119,6 +119,7 @@ export const NAV_LINKS = [
   { to: "/privacy", label: "Privacy Notice" },
   { to: "/contact", label: "Contact" },
   { to: "/app", label: "App Prototype" },
+  { to: "/investor-demo", label: "Investor Demo" },
 ];
 
 export const FOOTER_POLICY_LINKS = [

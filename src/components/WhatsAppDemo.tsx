@@ -15,6 +15,9 @@ import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
 import { EarningsBar } from "./EarningsBar";
+import { DoctrineLine } from "./DoctrineLine";
+import { StageBadge } from "./StageBadge";
+import { DOCTRINE_LINE } from "@/lib/governance";
 
 interface Msg {
   from: "bot" | "user";
@@ -108,7 +111,7 @@ export function WhatsAppDemo() {
       setStep("confirm");
       const q = quote(n, product);
       say(
-        `${product} draw\nAmount requested: ${money(q.amount)}\n${product} fee (${q.rate}%): ${money(q.fee)}\nYou receive: ${money(q.netReceived)}\nPayroll recovery: ${money(q.payrollRecovery)}\nRemaining capacity: ${money(remainingCapacity(cap, 0, n))}\n\n${CONSENT_STATEMENT}\n\nReply YES to confirm or NO to cancel.`,
+        `${product} draw\nAmount requested: ${money(q.amount)}\n${product} fee (${q.rate}%): ${money(q.fee)}\nYou receive: ${money(q.netReceived)}\nPayroll recovery: ${money(q.payrollRecovery)}\nRemaining capacity: ${money(remainingCapacity(cap, 0, n))}\n\n${DOCTRINE_LINE}\n\n${CONSENT_STATEMENT}\n\nReply YES to confirm or NO to cancel.`,
       );
       return;
     }
@@ -147,7 +150,10 @@ export function WhatsAppDemo() {
         <h3 className="font-display text-xl font-bold">
           WhatsApp-style assistant demo
         </h3>
-        <SimBadge />
+        <div className="flex flex-wrap gap-2">
+          <StageBadge stage="prototype" />
+          <SimBadge />
+        </div>
       </div>
       <p className="mb-4 text-sm text-muted-foreground">
         {COMPLIANCE.simNote} Not affiliated with or endorsed by any messaging
@@ -225,6 +231,8 @@ export function WhatsAppDemo() {
           </Button>
         </form>
       </div>
+
+      <DoctrineLine className="mt-4" />
     </div>
   );
 }
