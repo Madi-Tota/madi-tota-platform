@@ -1,14 +1,5 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Pre-launch: site is gated behind a Coming Soon screen, so it's kept out of
+# search indexes for now. Restore the previous "Allow: /" rules when the
+# site goes public (see src/components/PreviewGate.tsx).
 User-agent: *
-Allow: /
+Disallow: /
