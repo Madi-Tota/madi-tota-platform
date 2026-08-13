@@ -1,5 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { CONSENT_STATEMENT, confirmationLine, money0, type FeeQuote } from "@/lib/fees";
+import { DoctrineLine } from "./DoctrineLine";
 
 /**
  * AMENDMENT A1 — governed confirmation screen.
@@ -34,6 +35,7 @@ export function DrawConfirmation({
           <span className="font-semibold text-foreground">{money0(remaining)}</span>
         </p>
       )}
+      <DoctrineLine className="mt-3" />
       <label
         htmlFor={id}
         className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-muted/40 p-3 text-sm"

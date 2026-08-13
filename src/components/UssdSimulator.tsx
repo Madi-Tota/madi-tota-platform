@@ -14,6 +14,8 @@ import { accrual } from "@/lib/accrual";
 import { accessWindow } from "@/lib/accessWindow";
 import { SimBadge } from "./SimBadge";
 import { EarningsBar } from "./EarningsBar";
+import { DoctrineLine } from "./DoctrineLine";
+import { StageBadge } from "./StageBadge";
 
 const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
 
@@ -187,7 +189,10 @@ Any key to restart.`;
     <div className="rounded-2xl border border-border bg-card p-6 shadow-md">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-xl font-bold">USSD simulator</h3>
-        <SimBadge />
+        <div className="flex flex-wrap gap-2">
+          <StageBadge stage="prototype" />
+          <SimBadge />
+        </div>
       </div>
       <p className="mb-4 text-sm text-muted-foreground">
         {COMPLIANCE.simNote} Simulated monthly salary {money(SIM_SALARY)} — every
@@ -258,6 +263,8 @@ Any key to restart.`;
           </button>
         </div>
       </div>
+
+      <DoctrineLine className="mt-4" />
 
       <div className="mt-4 flex justify-center">
         <Button variant="soft" size="sm" onClick={reset}>
