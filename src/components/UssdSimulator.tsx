@@ -8,6 +8,8 @@ import {
   SIM_DAYS_WORKED,
   SIM_PRIOR_DRAWS,
   COMPLIANCE,
+  USSD_CODE,
+  USSD_CODE_LABEL,
 } from "@/lib/brand";
 import { quote, money, remainingCapacity } from "@/lib/fees";
 import { accrual } from "@/lib/accrual";
@@ -130,8 +132,7 @@ export function UssdSimulator() {
     switch (stage) {
       case "dial":
         return `Madi-Tota USSD
-Dial *120*XXX#
-(shortcode to be assigned)
+Dial ${USSD_CODE} (${USSD_CODE_LABEL})
 
 Simulated salary: ${money(SIM_SALARY)}/month`;
       case "menu":

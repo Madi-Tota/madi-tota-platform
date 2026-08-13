@@ -14,6 +14,10 @@ export const BRAND = {
   omnichannel: "Utlwala OmniChannel",
 };
 
+/** USSD shortcode for the (simulated) USSD channel. */
+export const USSD_CODE = "*120*3264#";
+export const USSD_CODE_LABEL = "MADI";
+
 /** Governed contact register — routing is enforced by form type. */
 export const CONTACTS = {
   partners: {
