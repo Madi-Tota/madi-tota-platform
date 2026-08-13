@@ -1,12 +1,17 @@
 import { ArrowRight } from "lucide-react";
 import { Section, SectionHeading } from "@/components/primitives";
+import { BRAND_IMAGES } from "@/lib/brand";
 
 export function UtlwalaSection() {
   return (
     <Section id="utlwala">
       <div className="grid gap-8 md:grid-cols-[200px_1fr] md:items-start">
-        <div className="grid h-32 w-full max-w-[200px] place-items-center rounded-2xl border border-dashed border-border bg-muted p-4 text-center text-xs font-medium text-muted-foreground">
-          [UTLWALA LOGO MARK — pending CEO approval]
+        <div className="grid h-32 w-full max-w-[200px] place-items-center rounded-2xl bg-primary p-4">
+          <img
+            src={BRAND_IMAGES.utlwalaLockup}
+            alt="Utlwala Tactical Systems — gold shield emblem. African Systems. Global Standard."
+            className="h-20 w-auto object-contain"
+          />
         </div>
         <div>
           <SectionHeading

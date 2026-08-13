@@ -12,6 +12,7 @@ import { StageBadge } from "@/components/StageBadge";
 import { DoctrineLine } from "@/components/DoctrineLine";
 import {
   LANGUAGES, RATES, BRAND, SIM_SALARY, SIM_WORKING_DAYS, SIM_DAYS_WORKED, SIM_PRIOR_DRAWS,
+  USSD_CODE, USSD_CODE_LABEL,
 } from "@/lib/brand";
 import { quote, money0, remainingCapacity } from "@/lib/fees";
 import { DrawConfirmation } from "@/components/DrawConfirmation";
@@ -527,7 +528,12 @@ function Ussd({ go }: { go: (s: ScreenId) => void }) {
         <Note>No smartphone or low data? Use USSD (concept).</Note>
         <div className="rounded-2xl border-2 border-dashed border-primary/40 bg-card p-5 font-mono text-sm">
           <p className="text-muted-foreground">Dial</p>
-          <p className="font-display text-2xl font-extrabold text-primary">*120*MADI#</p>
+          <p className="font-display text-2xl font-extrabold text-primary">
+            {USSD_CODE}{" "}
+            <span className="text-base font-semibold text-muted-foreground">
+              ({USSD_CODE_LABEL})
+            </span>
+          </p>
           <div className="mt-4 space-y-1 text-xs text-muted-foreground">
             <p>1. Check available access</p>
             <p>2. Request CHILL draw</p>

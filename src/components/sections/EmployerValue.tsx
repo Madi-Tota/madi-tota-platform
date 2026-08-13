@@ -3,6 +3,7 @@ import { HeartHandshake, ShieldCheck, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Section, SectionHeading, FeatureCard } from "@/components/primitives";
 import { FEE_LABELS } from "@/lib/fee-schedule";
+import { BRAND_IMAGES } from "@/lib/brand";
 
 const TILES = [
   {
@@ -25,6 +26,16 @@ const TILES = [
 export function EmployerValue() {
   return (
     <Section id="employers" muted>
+      <figure className="mb-10 overflow-hidden rounded-2xl border border-border">
+        <img
+          src={BRAND_IMAGES.bpoCallCentre}
+          alt="South African BPO and call-centre agents wearing headsets at workstations with performance dashboards."
+          className="aspect-video w-full object-cover"
+        />
+        <figcaption className="bg-card px-4 py-2.5 text-xs font-medium text-muted-foreground">
+          BPO & CX workforces — our pilot segment. Shift-based, WhatsApp/USSD-native.
+        </figcaption>
+      </figure>
       <SectionHeading
         eyebrow="For employers"
         title="A retention benefit that costs your business nothing."

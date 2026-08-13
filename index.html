@@ -6,20 +6,23 @@
     <title>Madi-Tota™ — Payroll-linked wage access for South African workers &amp; employers</title>
     <meta name="description" content="Madi-Tota lets South African workers access wages they have already earned — CHILL 5.8% or ZAP 11.1% per draw, capped at 20% of net pay. Free for employers. Pilot opening soon.">
     <meta name="author" content="Utlwala Tactical System (Pty) Ltd" />
+    <!-- Pre-launch: site is gated behind PreviewGate (see src/components/PreviewGate.tsx).
+         Remove this tag when the site is ready to go public. -->
+    <meta name="robots" content="noindex, nofollow" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Madi-Tota" />
     <meta property="og:title" content="Madi-Tota™ — Payroll-linked wage access for South African workers &amp; employers">
     <meta property="og:description" content="Madi-Tota lets South African workers access wages they have already earned — CHILL 5.8% or ZAP 11.1% per draw, capped at 20% of net pay. Free for employers. Pilot opening soon.">
     <meta property="og:image" content="/brand/og-image.jpg">
-    <meta property="og:url" content="https://madi-tota-platform.lovable.app/">
+    <meta property="og:url" content="https://maditota.co.za/">
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Madi-Tota™ — Payroll-linked wage access for South African workers &amp; employers">
     <meta name="twitter:description" content="Madi-Tota lets South African workers access wages they have already earned — CHILL 5.8% or ZAP 11.1% per draw, capped at 20% of net pay. Free for employers. Pilot opening soon.">
     <meta name="twitter:image" content="/brand/og-image.jpg">
 
-    <link rel="canonical" href="https://madi-tota-platform.lovable.app/" />
+    <link rel="canonical" href="https://maditota.co.za/" />
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <script type="application/ld+json">
@@ -27,7 +30,7 @@
         "@context": "https://schema.org",
         "@type": "FinancialService",
         "name": "Madi-Tota",
-        "url": "https://madi-tota-platform.lovable.app/",
+        "url": "https://maditota.co.za/",
         "areaServed": "ZA",
         "description": "Payroll-linked earned wage access for South African workers and employers. CHILL 5.8% or ZAP 11.1% per draw, capped at 20% of net pay."
       }
@@ -36,6 +39,24 @@
 
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      // Decodes the redirect written by public/404.html, restoring the real
+      // path (and any real query string, e.g. PreviewGate's ?key=) before the
+      // app reads window.location. Must run before main.tsx.
+      // Pattern: https://github.com/rafgraph/spa-github-pages
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(null, "", l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

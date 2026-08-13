@@ -7,6 +7,7 @@ import {
   SOCIALS,
   COMPLIANCE,
   FOOTER_TAGLINE,
+  BRAND_IMAGES,
 } from "@/lib/brand";
 
 const COLUMNS: { heading: string; links: { label: string; to: string }[] }[] = [
@@ -129,9 +130,16 @@ export function Footer() {
           <p>
             {COMPLIANCE.disclaimers[0]} {COMPLIANCE.disclaimers[1]}
           </p>
-          <p className="pt-2 text-sm font-medium text-primary-foreground/90">
-            {FOOTER_TAGLINE}
-          </p>
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <img
+              src={BRAND_IMAGES.utlwalaLockup}
+              alt="Utlwala Tactical Systems — gold shield emblem. African Systems. Global Standard."
+              className="h-11 w-auto object-contain"
+            />
+            <p className="text-sm font-medium text-primary-foreground/90">
+              {FOOTER_TAGLINE}
+            </p>
+          </div>
           <p className="pt-2">
             © 2026 Madi-Tota™. Non-live prototype using simulated data.
             Regulatory classification pending independent legal opinion. No

@@ -24,6 +24,34 @@ fallback so all unknown paths rewrite to `/index.html`.
 GitHub export: use the Lovable editor — **GitHub → Connect / Export to GitHub**.
 The exported repository is the source of truth for CTO handover.
 
+### GitHub Pages (production, `maditota.co.za`)
+
+`.github/workflows/deploy-pages.yml` builds and deploys `dist/` to GitHub
+Pages on every push to `main` (or manual dispatch). SPA fallback is handled
+via the `public/404.html` → `index.html` redirect pattern (rafgraph/spa-github-pages),
+since Pages has no server-side rewrites and this app uses `BrowserRouter`.
+`public/CNAME` pins the custom domain.
+
+One-time setup (repo admin, cannot be done via the GitHub API used by this
+session): **Settings → Pages → Build and deployment → Source: "GitHub
+Actions"**. After that the workflow above owns every deploy.
+
+DNS at the registrar (domains.co.za), apex `maditota.co.za` as the canonical
+domain, `www` redirecting to it:
+
+| Host | Type | Value |
+| --- | --- | --- |
+| `@` | A | `185.199.108.153` |
+| `@` | A | `185.199.109.153` |
+| `@` | A | `185.199.110.153` |
+| `@` | A | `185.199.111.153` |
+| `@` | AAAA (optional) | `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153` |
+| `www` | CNAME | `madi-tota.github.io.` |
+
+GitHub issues the HTTPS certificate automatically once DNS resolves and the
+custom domain is verified in Settings → Pages — this can take anywhere from
+minutes to ~24h, so configure DNS well ahead of anything time-sensitive.
+
 ## 2. Environment variables (names only — never commit values)
 
 The frozen prototype runs with **no** environment variables. The names below are
@@ -55,6 +83,20 @@ Brand and imagery (`public/brand/`):
 - `vertical-clinic.webp`, `vertical-logistics.webp`, `vertical-retail.webp` —
   future-vertical concepts. Caption mandatory: “Illustrative concept — future vertical”.
 - Founder portrait — used in Founder Letter, Founder Story, credibility bar.
+- `utlwala-tactical-systems-lockup.png` (canonical, CEO-provided) +
+  `utlwala-tactical-systems-lockup.webp` (optimised twin, used in-page) — Utlwala
+  parent-company gold shield emblem. Placements: Utlwala Vision section (72–96px,
+  dark panel) and footer (40–48px), per CTO Directive 010-A §2A. Alt text
+  (verbatim): “Utlwala Tactical Systems — gold shield emblem. African Systems.
+  Global Standard.” Never used at hero size; never replaces or resizes the
+  Madi-Tota lockup; never watermarked; tagline never cropped.
+- `bpo-call-centre.webp` (optimised, ≤300KB; source kept at
+  `source/bpo-call-centre-source.webp`) — BPO/call-centre workforce photo.
+  Placement: lead image, Employers section only, 16:9 crop, per CTO Directive
+  010-A §2B. Caption (verbatim): “BPO & CX workforces — our pilot segment.
+  Shift-based, WhatsApp/USSD-native.” Alt text (verbatim): “South African BPO
+  and call-centre agents wearing headsets at workstations with performance
+  dashboards.” No text overlays, no filters, no use outside this section.
 
 Any image slot without an approved asset renders
 “[PHOTO PENDING — CEO approval required]” /

@@ -14,6 +14,10 @@ export const BRAND = {
   omnichannel: "Utlwala OmniChannel",
 };
 
+/** USSD shortcode for the (simulated) USSD channel. */
+export const USSD_CODE = "*120*3264#";
+export const USSD_CODE_LABEL = "MADI";
+
 /** Governed contact register — routing is enforced by form type. */
 export const CONTACTS = {
   partners: {
@@ -58,6 +62,10 @@ export const BRAND_IMAGES = {
   workforce: "/brand/workforce-sectors.webp",
   workersMap: "/brand/workers-map.webp",
   household: "/brand/household-workers.webp",
+  /** CTO Directive 010-A, asset A. Canonical source: utlwala-tactical-systems-lockup.png */
+  utlwalaLockup: "/brand/utlwala-tactical-systems-lockup.webp",
+  /** CTO Directive 010-A, asset B. Employers section only. */
+  bpoCallCentre: "/brand/bpo-call-centre.webp",
   verticals: [
     {
       src: "/brand/vertical-clinic.webp",
