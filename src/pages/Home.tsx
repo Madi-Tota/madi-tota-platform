@@ -308,6 +308,32 @@ export default function Home() {
       </Suspense>
 
       <Suspense fallback={<SectionFallback />}>
+        <FollowTheRand />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <ExceptionPath />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback />}>
+        <Auditability />
+      </Suspense>
+
+      <Section muted id="worker-agreement">
+        <SectionHeading
+          center
+          eyebrow="Consent"
+          title="Worker agreement and payroll recovery consent"
+          subtitle="Registration is blocked until the employer relationship is validated and the worker gives affirmative consent."
+        />
+        <div className="mx-auto mt-10 max-w-xl">
+          <Suspense fallback={<SectionFallback />}>
+            <WorkerAgreementFlow />
+          </Suspense>
+        </div>
+      </Section>
+
+      <Suspense fallback={<SectionFallback />}>
         <YourAgreement />
       </Suspense>
 

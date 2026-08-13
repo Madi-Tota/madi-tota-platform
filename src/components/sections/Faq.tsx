@@ -1,3 +1,4 @@
+import { DOCTRINE_LINE, REGULATORY_STATEMENT } from "@/lib/governance";
 import {
   Accordion,
   AccordionContent,
@@ -109,6 +110,9 @@ export function Faq() {
           items={EMPLOYER_FAQ}
         />
       </div>
+      <p className="mt-8 max-w-3xl text-sm text-muted-foreground">
+        {DOCTRINE_LINE} {REGULATORY_STATEMENT}
+      </p>
     </Section>
   );
 }
