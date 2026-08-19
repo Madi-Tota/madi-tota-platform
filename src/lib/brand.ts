@@ -4,7 +4,7 @@
 export const BRAND = {
   name: "Madi-Tota",
   owner: "Utlwala Tactical System (Pty) Ltd",
-  tagline: "Wage access made simple, fair and payroll-linked.",
+  tagline: "Your work. Your worth. Your way.",
   descriptor:
     "designed and intended as payroll-linked wage-access infrastructure",
   motto: "Re tla fenya mmogo — we will succeed together",
