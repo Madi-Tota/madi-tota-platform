@@ -141,9 +141,9 @@ export function Footer() {
             </p>
           </div>
           <p className="pt-2">
-            © 2026 Madi-Tota™. Non-live prototype using simulated data.
-            Regulatory classification pending independent legal opinion. No
-            credit is extended on this site.
+            © 2026 Madi-Tota™ · Investor Demonstration Prototype. Non-live
+            prototype using simulated data. Regulatory classification pending
+            independent legal opinion. No credit is extended on this site.
           </p>
           <p className="pt-2 text-sm font-medium text-primary-foreground/90">
             Madi-Tota™ · A Utlwala Tactical System Platform · Built in South
